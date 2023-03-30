@@ -6,6 +6,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
 {
     #region local variables
     GameDateTime _gameDateTime;
+    Resources _resources;
     SaveManager _saveManager;
     #endregion
 
@@ -14,6 +15,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     {
         base.Awake();
         _gameDateTime = GameDateTime.Instance;
+        _resources = Resources.Instance;
         _saveManager = SaveManager.Instance;
     }
 
@@ -31,18 +33,22 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #region save load
     public void Load(GameSave state)
     {
-        TimeDateSave timeDateSave = state._timeDateSave;
+        DateTimeSave timeDateSave = state._timeDateSave;
         _gameDateTime.SetGameDateTime(
             (Day)timeDateSave._currentDay,
             timeDateSave._currentHour, 
             timeDateSave._currentMinute, 
             new KeyValuePair<Month, int>((Month)timeDateSave._currentMonthMonth, timeDateSave._currentMonthDay));
+
+        ResourcesSave resourcesSave = state._resourcesSave;
+        _resources.SetResources(resourcesSave._food, resourcesSave._materials, resourcesSave._medicine, resourcesSave._money);
     }
 
     public GameSave Save()
     {
-        TimeDateSave timeDateSave = new TimeDateSave(_gameDateTime.CurrentDay, _gameDateTime.CurrentHour, _gameDateTime.CurrentMinute, _gameDateTime.CurrentMonth);
-        return new GameSave(timeDateSave);
+        DateTimeSave dateTimeSave = new DateTimeSave(_gameDateTime.CurrentDay, _gameDateTime.CurrentHour, _gameDateTime.CurrentMinute, _gameDateTime.CurrentMonth);
+        ResourcesSave resourcesSave = new ResourcesSave(_resources.Food, _resources.Materials, _resources.Medicine, _resources.Money);
+        return new GameSave(dateTimeSave, resourcesSave);
     }
     #endregion
 }

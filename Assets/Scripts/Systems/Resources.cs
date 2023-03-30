@@ -19,6 +19,14 @@ public class Resources : Singleton<Resources>
     #endregion
 
     #region public methods
+    public void SetResources(int? food = null, int? materials = null, int? medicine = null, int?money = null)
+    {
+        _food = food ?? _food;
+        _materials = materials ?? _materials;
+        _medicine = medicine ?? _medicine;
+        _money = money ?? _money;
+    }
+
     public bool SpendFood(int quantity)
     {
         if(quantity > Food) { return false; }
