@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b30d30892ab3f43b09a265416c0e71, type: 3}
+  m_Name: WorldData
+  m_EditorClassIdentifier: 
+  _sealSpottingChances:
+  - _name: 00.00
+    _hour: 0
+    _chance: 10
+  - _name: 01.00
+    _hour: 1
+    _chance: 5
+  - _name: 02.00
+    _hour: 2
+    _chance: 5
+  - _name: 03.00
+    _hour: 3
+    _chance: 10
+  - _name: 04.00
+    _hour: 4
+    _chance: 15
+  - _name: 05.00
+    _hour: 5
+    _chance: 25
+  - _name: 06.00
+    _hour: 6
+    _chance: 35
+  - _name: 07.00
+    _hour: 7
+    _chance: 50
+  - _name: 08.00
+    _hour: 8
+    _chance: 75
+  - _name: 09.00
+    _hour: 9
+    _chance: 100
+  - _name: 10.00
+    _hour: 10
+    _chance: 100
+  - _name: 11.00
+    _hour: 11
+    _chance: 100
+  - _name: 12.00
+    _hour: 12
+    _chance: 100
+  - _name: 13.00
+    _hour: 13
+    _chance: 100
+  - _name: 14.00
+    _hour: 14
+    _chance: 100
+  - _name: 15.00
+    _hour: 15
+    _chance: 100
+  - _name: 16.00
+    _hour: 16
+    _chance: 100
+  - _name: 17.00
+    _hour: 0
+    _chance: 0
+  - _name: 18.00
+    _hour: 18
+    _chance: 100
+  - _name: 19.00
+    _hour: 19
+    _chance: 100
+  - _name: 20.00
+    _hour: 20
+    _chance: 100
+  - _name: 21.00
+    _hour: 21
+    _chance: 75
+  - _name: 22.00
+    _hour: 22
+    _chance: 50
+  - _name: 23.00
+    _hour: 23
+    _chance: 25
