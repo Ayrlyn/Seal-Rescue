@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 137947213}
   - component: {fileID: 137947210}
   - component: {fileID: 137947211}
+  - component: {fileID: 137947214}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -158,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeScaleMultiplier: 1
-  _timeToPassOneMinute: 0.001
+  _timeToPassOneMinute: 0.1
 --- !u!4 &137947208
 Transform:
   m_ObjectHideFlags: 0
@@ -234,6 +235,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e239eec5dac8a4c47b73c8fb00d375e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &137947214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137947206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc1afee6a0e74b4086d790844bc128b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upkeeps:
+  - _name: Rent
+    _frequency: 5
+    _quantity: 100
+    _resourceType: 40
+  - _name: Maintenance
+    _frequency: 4
+    _quantity: 10
+    _resourceType: 20
 --- !u!1 &349870051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,7 +1354,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 775, y: 0}
-  m_SizeDelta: {x: 155, y: 50}
+  m_SizeDelta: {x: 165, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &1133957634
 GameObject:

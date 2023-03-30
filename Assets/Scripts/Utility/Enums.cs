@@ -30,6 +30,15 @@ public enum Month
     December = 12
 }
 
+public enum ResourceTypes
+{
+    DEFAULT = 0,
+    Food = 10,
+    Materials = 20,
+    Medicine = 30,
+    Money = 40
+}
+
 public enum SealHealth
 {
     DEFAULT = 0,
