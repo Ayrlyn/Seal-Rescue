@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resources : Singleton<Resources>
+public class Resources : Singleton<Resources>, ISave<ResourcesSave>
 {
     #region local variables
     int _food = 1000;
@@ -53,6 +53,18 @@ public class Resources : Singleton<Resources>
         if (quantity > Money) { return false; }
         _money -= quantity;
         return true;
+    }
+    #endregion
+
+    #region save load
+    public void Load(ResourcesSave resourcesSave)
+    {
+        SetResources(resourcesSave._food, resourcesSave._materials, resourcesSave._medicine, resourcesSave._money);
+    }
+
+    public ResourcesSave Save()
+    {
+        return new ResourcesSave(Food, Materials, Medicine, Money);
     }
     #endregion
 }

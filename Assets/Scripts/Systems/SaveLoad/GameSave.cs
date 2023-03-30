@@ -4,12 +4,14 @@ using System.Collections.Generic;
 [Serializable]
 public class GameSave
 {
-    public DateTimeSave _timeDateSave;
+    public DateTimeSave _dateTimeSave;
     public ResourcesSave _resourcesSave;
+    public UpkeepSave _upkeepSave;
 
-    public GameSave(DateTimeSave dateTimeSave, ResourcesSave resourcesSave)
+    public GameSave(DateTimeSave dateTimeSave, ResourcesSave resourcesSave, UpkeepSave upkeepSave)
     {
-        _timeDateSave = dateTimeSave;
+        _dateTimeSave = dateTimeSave;
         _resourcesSave = resourcesSave;
+        _upkeepSave = upkeepSave;
     }
 }

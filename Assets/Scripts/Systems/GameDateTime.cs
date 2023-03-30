@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameDateTime : Singleton<GameDateTime>
+public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
 {
     #region editor variables
     [Range(1, 5)]public int _timeScaleMultiplier = 1;
@@ -97,6 +97,22 @@ public class GameDateTime : Singleton<GameDateTime>
         _currentHour = hour;
         _currentMinute = minute;
         _currentMonth = new KeyValuePair<Month, int>(month.Key, month.Value);
+    }
+    #endregion
+
+    #region save load
+    public void Load(DateTimeSave dateTimeSave)
+    {
+        SetGameDateTime(
+            (Day)dateTimeSave._currentDay, 
+            dateTimeSave._currentHour, 
+            dateTimeSave._currentMinute, 
+            new KeyValuePair<Month, int>((Month)dateTimeSave._currentMonthMonth, dateTimeSave._currentMonthDay));
+    }
+
+    public DateTimeSave Save()
+    {
+        return new DateTimeSave(CurrentDay, CurrentHour, CurrentMinute, CurrentMonth);
     }
     #endregion
 }

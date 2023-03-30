@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upkeep : MonoBehaviour
+public class UpkeepController : Singleton<UpkeepController>, ISave<UpkeepSave>
 {
     #region serializable variables
-    [SerializeField] List<UpkeepData> upkeeps;
+    [SerializeField] List<UpkeepData> _upkeeps;
     #endregion
 
     #region local variables
@@ -19,8 +19,9 @@ public class Upkeep : MonoBehaviour
     #endregion
 
     #region unity methods
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _resources = Resources.Instance;
     }
 
@@ -78,7 +79,7 @@ public class Upkeep : MonoBehaviour
 
     void SortUpkeeps()
     {
-        foreach (UpkeepData data in upkeeps)
+        foreach (UpkeepData data in _upkeeps)
         {
             switch (data.Frequency)
             {
@@ -119,6 +120,26 @@ public class Upkeep : MonoBehaviour
                 _resources.SpendMoney(upkeepData.Quantity);
                 break;
         }
+    }
+    #endregion
+
+    #region save load
+    public void Load(UpkeepSave upkeepSave)
+    {
+        _upkeeps = new List<UpkeepData>();
+        for (int i = 0; i < upkeepSave._upkeepFrequencies.Count; i++)
+        {
+            _upkeeps.Add(
+                new UpkeepData((TimePassed)upkeepSave._upkeepFrequencies[i],
+                upkeepSave._upkeepQuantities[i],
+                (ResourceTypes)upkeepSave._upkeepResources[i]));
+        }
+        SortUpkeeps();
+    }
+
+    public UpkeepSave Save()
+    {
+        return new UpkeepSave(_upkeeps);
     }
     #endregion
 }
