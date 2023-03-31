@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc1afee6a0e74b4086d790844bc128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upkeeps:
+  _upkeeps:
   - _name: Rent
     _frequency: 5
     _quantity: 100
