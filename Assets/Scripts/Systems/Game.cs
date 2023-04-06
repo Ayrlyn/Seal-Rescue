@@ -35,6 +35,9 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #region save load
     public void Load(GameSave state)
     {
+        if(_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; }
+        if(_resources == null) { _resources = Resources.Instance; }
+        if(_upkeepController == null) { _upkeepController = UpkeepController.Instance; }
         _gameDateTime.Load(state._dateTimeSave);
         _resources.Load(state._resourcesSave);
         _upkeepController.Load(state._upkeepSave);
