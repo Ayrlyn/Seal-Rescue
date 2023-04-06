@@ -6,7 +6,7 @@ using UnityEngine;
 public class Seal : MonoBehaviour
 {
     #region local variables
-    Tuple<int, int, int, int> _age;
+    int _age;
     KeyValuePair<Month, int> _birthday;
     SealHealth _health;
     float _hunger;
@@ -15,5 +15,8 @@ public class Seal : MonoBehaviour
     KeyValuePair<Month, int> _rescueDay;
     SealRescueProgress _rescueProgress;
     float _weight;
+    #endregion
+
+    #region getters and setters
     #endregion
 }
