@@ -20,8 +20,9 @@ public class HUDController : Singleton<HUDController>
     #endregion
 
     #region unity methods
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _gameDateTime = GameDateTime.Instance;
         _resources = Resources.Instance;
     }
