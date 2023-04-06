@@ -18,5 +18,10 @@ public class Seal : MonoBehaviour
     #endregion
 
     #region getters and setters
+    public int Age { get { return _age; } }
+    public SealHealth Health { get { return _health; } }
+    public SealMood Mood { get { return _mood; } }
+    public KeyValuePair<Month, int> RescueDay { get { return RescueDay; } }
+    public SealRescueProgress RescueProgress { get { return _rescueProgress; } }
     #endregion
 }
