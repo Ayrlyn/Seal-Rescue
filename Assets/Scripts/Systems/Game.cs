@@ -6,9 +6,14 @@ public class Game : Singleton<Game>, ISave<GameSave>
 {
     #region local variables
     GameDateTime _gameDateTime;
+    HashSet<string> _oneOffGameEvents = new HashSet<string>();
     Resources _resources;
     SaveManager _saveManager;
     UpkeepController _upkeepController;
+    #endregion
+
+    #region getters and setters
+    public HashSet<string> OneOffGameEvents { get { return _oneOffGameEvents; } }
     #endregion
 
     #region unity methods
@@ -39,6 +44,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
         if(_resources == null) { _resources = Resources.Instance; }
         if(_upkeepController == null) { _upkeepController = UpkeepController.Instance; }
         _gameDateTime.Load(state._dateTimeSave);
+        _oneOffGameEvents = state._oneOffGameEvents;
         _resources.Load(state._resourcesSave);
         _upkeepController.Load(state._upkeepSave);
     }
@@ -48,7 +54,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
         DateTimeSave dateTimeSave = _gameDateTime.Save();
         ResourcesSave resourcesSave = _resources.Save();
         UpkeepSave upkeepSave = _upkeepController.Save();
-        return new GameSave(dateTimeSave, resourcesSave, upkeepSave);
+        return new GameSave(dateTimeSave, OneOffGameEvents, resourcesSave, upkeepSave);
     }
     #endregion
 }
