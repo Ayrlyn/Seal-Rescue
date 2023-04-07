@@ -5,13 +5,13 @@ using UnityEngine;
 public class SceneReferences : Singleton<SceneReferences>
 {
     #region serializable variables
-    [SerializeField]List<SealSpecies> _sealSpecies;
+    [SerializeField]List<SealSpeciesData> _sealSpecies;
     #endregion
 
     #region local variables
     #endregion
 
     #region getters and setters
-    public List<SealSpecies> SealSpecies { get { return _sealSpecies; } }
+    public List<SealSpeciesData> SealSpecies { get { return _sealSpecies; } }
     #endregion
 }

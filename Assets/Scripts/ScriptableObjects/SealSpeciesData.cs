@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Seals/Species")]
-public class SealSpecies : ScriptableObject
+public class SealSpeciesData : ScriptableObject
 {
     [SerializeField] string speciesName;
     [SerializeField] Vector2 birthLengthRange;
