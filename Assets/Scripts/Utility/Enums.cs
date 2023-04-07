@@ -76,6 +76,13 @@ public enum SealRescueProgress
     Release = 130
 }
 
+public enum SealSpecies
+{
+    DEFAULT = 0,
+    CommonSeal = 10,
+    GreySeal = 20
+}
+
 public enum TimePassed
 {
     DEFAULT = 0,
