@@ -13,7 +13,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #endregion
 
     #region getters and setters
-    public HashSet<string> OneOffGameEvents { get { return _oneOffGameEvents; } }
+    public HashSet<string> OneOffGameEvents { get { return _oneOffGameEvents; } set { _oneOffGameEvents = value; } }
     #endregion
 
     #region unity methods
