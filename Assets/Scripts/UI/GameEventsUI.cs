@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class GameEventsUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+}
+
+public class GameEventInfo
+{
+    #region local variables
+    string _eventDescription;
+    string _eventName;
+    #endregion
+
+    #region getters and setters
+    public string EventDescription { get { return _eventDescription; } }
+    public string EventName { get { return _eventName; } }
+    #endregion
+
+    #region constructors
+    public GameEventInfo(string eventDescription, string eventName)
     {
-        
+        _eventDescription = eventDescription;
+        _eventName = eventName;
     }
+    #endregion
 }
