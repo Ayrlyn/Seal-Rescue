@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SceneReferences : Singleton<SceneReferences>
 {
+    #region serializable variables
+    [SerializeField]List<SealSpecies> _sealSpecies;
+    #endregion
+
     #region local variables
-    List<SealSpecies> _sealSpecies;
     #endregion
 
     #region getters and setters
