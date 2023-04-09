@@ -14,4 +14,17 @@ public class SceneReferences : Singleton<SceneReferences>
     #region getters and setters
     public List<SealSpeciesData> SealSpecies { get { return _sealSpecies; } }
     #endregion
+
+
+    #region public methods
+    public string GetDisplayName(SealSpecies species)
+    {
+        foreach (SealSpeciesData speciesData in SealSpecies)
+        {
+            if(speciesData.SealSpecies == species) { return speciesData.SpeciesName; }
+        }
+        Debug.LogError($"Invalid seal species: {species.ToString()}");
+        return ("");
+    }
+    #endregion
 }
