@@ -43,10 +43,10 @@ public class HUDController : Singleton<HUDController>
 
     void UpdateResourcesText()
     {
-        _foodText.text = $"{_resources.Food:D4}";
-        _materialsText.text = $"{_resources.Materials:D4}";
-        _medicineText.text = $"{_resources.Medicine:D4}";
-        _moneyText.text = $"{_resources.Money:D4}";
+        _foodText.text = $"{Resources.Food:D4}";
+        _materialsText.text = $"{Resources.Materials:D4}";
+        _medicineText.text = $"{Resources.Medicine:D4}";
+        _moneyText.text = $"{Resources.Money:D4}";
     }
     #endregion
 
