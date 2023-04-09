@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 137947209}
   - component: {fileID: 137947212}
   - component: {fileID: 137947207}
+  - component: {fileID: 137947215}
   - component: {fileID: 137947213}
   - component: {fileID: 137947210}
   - component: {fileID: 137947211}
@@ -259,6 +260,18 @@ MonoBehaviour:
     _frequency: 4
     _quantity: 10
     _resourceType: 20
+--- !u!114 &137947215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137947206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9866061ace84016449809b18e89a9d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &190198111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1555,7 @@ GameObject:
   - component: {fileID: 1110561202}
   - component: {fileID: 1110561204}
   - component: {fileID: 1110561203}
+  - component: {fileID: 1110561205}
   m_Layer: 5
   m_Name: Seal Hospital
   m_TagString: Untagged
@@ -1607,6 +1621,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110561201}
   m_CullTransparentMesh: 1
+--- !u!114 &1110561205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110561201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3d7bc243a74ff429236fdebb1c7fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1133957634
 GameObject:
   m_ObjectHideFlags: 0
