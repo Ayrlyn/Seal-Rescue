@@ -8,8 +8,8 @@ public class Seal : MonoBehaviour, ISave<SealSave>
     #region local variables
     int _age;
     SealHealth _health;
-    int _healthValue;
-    int _hunger;
+    [Range(1, 100)] int _healthValue;
+    [Range(1, 100)] int _hunger;
     SealMood _mood;
     string _name;
     KeyValuePair<Month, int> _rescueDate;
@@ -30,16 +30,22 @@ public class Seal : MonoBehaviour, ISave<SealSave>
     #endregion
 
     #region constructor
-    public Seal(int age, SealHealth health, int healthValue, SealMood mood, string name, SealRescueProgress rescueProgress, SealSpecies sealSpecies, float weight)
+    public Seal(int age, SealHealth health, int healthValue, int hunger, SealMood mood, string name, SealRescueProgress rescueProgress, SealSpecies sealSpecies, float weight)
     {
         _age = age;
         _health = health;
         _healthValue = healthValue;
+        _hunger = hunger;
         _mood = mood;
         _name = name;
         _rescueProgress = rescueProgress;
         _sealSpecies = sealSpecies;
         _weight = weight;
+    }
+
+    public Seal(SealSave sealSave)
+    {
+        Load(sealSave);
     }
     #endregion
 
