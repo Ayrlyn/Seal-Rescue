@@ -7,6 +7,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #region local variables
     GameDateTime _gameDateTime;
     GameEventController _gameEventController;
+    GameEventsUI _gameEventsUI;
     HashSet<string> _oneOffGameEvents = new HashSet<string>();
     Resources _resources;
     SaveManager _saveManager;
@@ -18,6 +19,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #region getters and setters
     GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     GameEventController GameEventController { get { if (_gameEventController == null) { _gameEventController = GameEventController.Instance; } return _gameEventController; } }
+    GameEventsUI GameEventsUI { get { if (_gameEventsUI == null) { _gameEventsUI = GameEventsUI.Instance; } return _gameEventsUI; } }
     public HashSet<string> OneOffGameEvents { get { return _oneOffGameEvents; } set { _oneOffGameEvents = value; } }
     Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
     SaveManager SaveManager { get { if (_saveManager == null) { _saveManager = SaveManager.Instance; } return _saveManager; } }
@@ -33,6 +35,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
         GameEventController.Init();
         SealHospital.Init();
         UpkeepController.Init();
+        GameEventsUI.Init();
     }
 
     void OnApplicationQuit()
