@@ -19,7 +19,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     GameEventController GameEventController { get { if (_gameEventController == null) { _gameEventController = GameEventController.Instance; } return _gameEventController; } }
     public HashSet<string> OneOffGameEvents { get { return _oneOffGameEvents; } set { _oneOffGameEvents = value; } }
-    Resources Resources { get { if(_resources == null) { _resources = Resources.Instance; } return _resources; } }
+    Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
     SaveManager SaveManager { get { if (_saveManager == null) { _saveManager = SaveManager.Instance; } return _saveManager; } }
     SealHospital SealHospital { get { if (_sealHospital == null) { _sealHospital = SealHospital.Instance; } return _sealHospital; } }
     public HashSet<Seal> Seals { get { return _seals; } set { _seals = value; } }
@@ -45,7 +45,10 @@ public class Game : Singleton<Game>, ISave<GameSave>
     public void Load(GameSave state)
     {
         GameDateTime.Load(state._dateTimeSave);
-        OneOffGameEvents = state._oneOffGameEvents;
+        foreach (string gameEvent in state._oneOffGameEvents)
+        {
+            OneOffGameEvents.Add(gameEvent);
+        }
         Resources.Load(state._resourcesSave);
         foreach (SealSave sealSave in state._sealSaves)
         {
