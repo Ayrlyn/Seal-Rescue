@@ -15,7 +15,7 @@ public class DateTimeSave
         _currentDay = (int)day;
         _currentHour = hour;
         _currentMinute = minute;
-        _currentMonthDay = (int)month.Key;
-        _currentMonthMonth = month.Value;
+        _currentMonthDay = month.Value;
+        _currentMonthMonth = (int)month.Key;
     }
 }
