@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 722d2a48a7b355142adbcba3f1cbb4d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c0ebde1542fdcb45bc909f60c78bb7d, type: 3}
   m_Name: GreySeal
   m_EditorClassIdentifier: 
   speciesName: Grey Seal
