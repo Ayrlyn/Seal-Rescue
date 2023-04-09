@@ -58,6 +58,7 @@ public class Seal : MonoBehaviour, ISave<SealSave>
         _mood = (SealMood)save._mood;
         _name = save._name;
         _rescueDate = new KeyValuePair<Month, int>((Month)save._rescueMonth, save._rescueDay);
+        _rescueProgress = (SealRescueProgress)save._rescueProgress;
         _sealSpecies = (SealSpecies)save._species;
         _weight = save._weight;
     }
