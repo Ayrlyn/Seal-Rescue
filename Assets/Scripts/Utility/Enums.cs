@@ -13,6 +13,12 @@ public enum Day
     Sunday = 7
 }
 
+public enum GameEventType
+{
+    DEFAULT = 0,
+    SealSpotted = 100
+}
+
 public enum Month
 {
     DEFAULT = 0,
