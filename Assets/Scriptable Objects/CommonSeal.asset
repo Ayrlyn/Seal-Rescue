@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0ebde1542fdcb45bc909f60c78bb7d, type: 3}
   m_Name: CommonSeal
   m_EditorClassIdentifier: 
+  sealSpecies: 10
   speciesName: Common Seal
   birthLengthRange: {x: 65, y: 100}
   birghtWeightRange: {x: 6, y: 12}

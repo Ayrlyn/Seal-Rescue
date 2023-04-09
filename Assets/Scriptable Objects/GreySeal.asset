@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0ebde1542fdcb45bc909f60c78bb7d, type: 3}
   m_Name: GreySeal
   m_EditorClassIdentifier: 
+  sealSpecies: 20
   speciesName: Grey Seal
   birthLengthRange: {x: 90, y: 105}
   birghtWeightRange: {x: 12, y: 16}
