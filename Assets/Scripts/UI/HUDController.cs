@@ -19,14 +19,12 @@ public class HUDController : Singleton<HUDController>
     Resources _resources;
     #endregion
 
-    #region unity methods
-    public override void Awake()
-    {
-        base.Awake();
-        _gameDateTime = GameDateTime.Instance;
-        _resources = Resources.Instance;
-    }
+    #region getters and setters
+    GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
+    Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
+    #endregion
 
+    #region unity methods
     void Update()
     {
         UpdateGameDateTimeText();
@@ -38,9 +36,9 @@ public class HUDController : Singleton<HUDController>
     void UpdateGameDateTimeText()
     {
         _gameDateTimeText.text = 
-            $"{_gameDateTime.CurrentDay.ToString().Substring(0,3)}. " +
-            $"{_gameDateTime.CurrentMonth.Value:D2} {_gameDateTime.CurrentMonth.Key.ToString().Substring(0,3)}. " +
-            $"{_gameDateTime.CurrentHour:D2}:{_gameDateTime.CurrentMinute:D2} ";
+            $"{GameDateTime.CurrentDay.ToString().Substring(0,3)}. " +
+            $"{GameDateTime.CurrentMonth.Value:D2} {GameDateTime.CurrentMonth.Key.ToString().Substring(0,3)}. " +
+            $"{GameDateTime.CurrentHour:D2}:{GameDateTime.CurrentMinute:D2} ";
     }
 
     void UpdateResourcesText()

@@ -19,19 +19,6 @@ public class UpkeepController : Singleton<UpkeepController>, ISave<UpkeepSave>
     #endregion
 
     #region unity methods
-    public override void Awake()
-    {
-        base.Awake();
-        _resources = Resources.Instance;
-    }
-
-    void Start()
-    {
-        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
-
-        SortUpkeeps();
-    }
-
     void OnDestroy()
     {
         try { EventMessenger.Instance.OnTimeAndDateChange -= OnTimePassed; }
@@ -120,6 +107,15 @@ public class UpkeepController : Singleton<UpkeepController>, ISave<UpkeepSave>
                 _resources.SpendMoney(upkeepData.Quantity);
                 break;
         }
+    }
+    #endregion
+
+    #region public methods
+    public void Init()
+    {
+        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
+
+        SortUpkeeps();
     }
     #endregion
 
