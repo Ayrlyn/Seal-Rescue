@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SealHospital : MonoBehaviour
+public class SealHospital : Singleton<SealHospital>
 {
     #region local variables
     List<Seal> _residentSeals = new List<Seal>();
@@ -12,11 +12,6 @@ public class SealHospital : MonoBehaviour
     #endregion
 
     #region unity methods
-    void Start()
-    {
-        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
-    }
-
     void OnDestroy()
     {
         try { EventMessenger.Instance.OnTimeAndDateChange -= OnTimePassed; } 
@@ -27,7 +22,23 @@ public class SealHospital : MonoBehaviour
     #region local methods
     void CheckSealStatus(Seal seal)
     {
+        switch (seal.Health)
+        {
+            case SealHealth.Healthy:
+                break;
+            case SealHealth.Injured:
+                break;
+            case SealHealth.Sick:
+                break;
+            case SealHealth.Starving:
+                break;
+        }
 
+        switch (seal.Mood)
+        {
+            case SealMood.Hungry:
+                break;
+        }
     }
 
     void OnTimePassed(TimePassed time)
@@ -53,6 +64,13 @@ public class SealHospital : MonoBehaviour
             default:
                 break;
         }
+    }
+    #endregion
+
+    #region public methods
+    public void Init()
+    {
+        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
     }
     #endregion
 }
