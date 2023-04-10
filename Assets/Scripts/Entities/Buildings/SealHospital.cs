@@ -11,6 +11,12 @@ public class SealHospital : Singleton<SealHospital>
     List<Task> _tasks = new List<Task>();
     #endregion
 
+    #region getters and setters
+    public bool HasSpaceForSeal { get { return ResidentSeals.Count <= SealCapacity; } }
+    public List<Seal> ResidentSeals { get { return _residentSeals; } }
+    public int SealCapacity { get { return _sealCapacity; } }
+    #endregion
+
     #region unity methods
     void OnDestroy()
     {

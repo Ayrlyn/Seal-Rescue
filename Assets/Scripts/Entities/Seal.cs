@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seal : MonoBehaviour, ISave<SealSave>
+public class Seal : ISave<SealSave>
 {
     #region local variables
     int _age;
@@ -25,6 +25,42 @@ public class Seal : MonoBehaviour, ISave<SealSave>
     public string Name { get { return _name; } }
     public KeyValuePair<Month, int> RescueDate { get { return _rescueDate; } }
     public SealRescueProgress RescueProgress { get { return _rescueProgress; } }
+    public string RescueProgressString
+    {
+        get
+        {
+            switch (RescueProgress)
+            {
+                case SealRescueProgress.Arrival:
+                    return "Arrival";
+                case SealRescueProgress.Quarantine:
+                    return "Quarantine";
+                case SealRescueProgress.TubeFeeding:
+                    return "Tube Feeding";
+                case SealRescueProgress.ForceFeeding:
+                    return "Force Feeding";
+                case SealRescueProgress.HandFeeding:
+                    return "Hand Feeding";
+                case SealRescueProgress.FishSchool:
+                    return "Fish School";
+                case SealRescueProgress.FreeFeeding:
+                    return "Free Feeding";
+                case SealRescueProgress.NurseryPool:
+                    return "Nurdery Pool";
+                case SealRescueProgress.RockPool:
+                    return "Rock Pool";
+                case SealRescueProgress.PhysioPool:
+                    return "Physio Pool";
+                case SealRescueProgress.PreReleasePool:
+                    return "Pre-Release Pool";
+                case SealRescueProgress.Release:
+                    return "Released";
+                default:
+                    Debug.LogError($"INVALID RESCUE PROGRESS: {RescueProgress}");
+                    return "";
+            }
+        }
+    }
     public SealSpecies SealSpecies { get { return _sealSpecies; } }
     public float Weight { get { return _weight; } }
     #endregion
@@ -46,6 +82,14 @@ public class Seal : MonoBehaviour, ISave<SealSave>
     public Seal(SealSave sealSave)
     {
         Load(sealSave);
+    }
+    #endregion
+
+    #region public methods
+    public void RescueMe()
+    {
+        _rescueProgress = SealRescueProgress.Arrival;
+        _rescueDate = GameDateTime.Instance.CurrentMonth;
     }
     #endregion
 

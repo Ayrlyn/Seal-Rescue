@@ -13,6 +13,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
     Game _game;
     List<GameEventButtonPrefab> _gameEventButtonPrefabs = new List<GameEventButtonPrefab>();
     List<GameEventInfo> _gameEventInfos = new List<GameEventInfo>();
+    Dictionary<GameEventInfo, GameEventButtonPrefab> _infosAndPrefabs = new Dictionary<GameEventInfo, GameEventButtonPrefab>();
     SceneReferences _sceneReferences;
     #endregion
 
@@ -33,6 +34,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
                 GameEventButtonPrefab gameEventButtonPrefab = Instantiate(_gameEventButtonPrefab, _gameEventButtonParentTransform);
                 gameEventButtonPrefab.Init(eventInfo);
                 _gameEventButtonPrefabs.Add(gameEventButtonPrefab);
+                _infosAndPrefabs.Add(eventInfo, gameEventButtonPrefab);
             }
         }
         else
@@ -42,6 +44,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
                 Destroy(gameEventButtonPrefab.gameObject);
             }
             _gameEventButtonPrefabs.Clear();
+            _infosAndPrefabs.Clear();
         }
     }
     public void Init()
@@ -56,6 +59,22 @@ public class GameEventsUI : Singleton<GameEventsUI>
                     GameEventType.SealSpotted, seal);
                 _gameEventInfos.Add(gameEventInfo);
             }
+        }
+    }
+
+    public void RemoveSealEvent(Seal seal)
+    {
+        GameEventInfo infoToRemove = null;
+        foreach (GameEventInfo eventInfo in _gameEventInfos)
+        {
+            if(eventInfo.Seal == seal) { infoToRemove = eventInfo; }
+        }
+        if(infoToRemove != null)
+        {
+            Destroy(_infosAndPrefabs[infoToRemove].gameObject);
+            _gameEventInfos.Remove(infoToRemove);
+            _gameEventButtonPrefabs.Remove(_infosAndPrefabs[infoToRemove]);
+            _infosAndPrefabs.Remove(infoToRemove);
         }
     }
     #endregion
@@ -73,6 +92,8 @@ public class GameEventInfo
     #region getters and setters
     public string EventDescription { get { return _eventDescription; } }
     public string EventName { get { return _eventName; } }
+    public GameEventType GameEventType { get { return _gameEventType; } }
+    public Seal Seal { get { return _seal; } }
     #endregion
 
     #region constructors
