@@ -21,3 +21,10 @@ MonoBehaviour:
   puppingMonths: 0600000007000000
   releaseWeightRange: {x: 25, y: 30}
   weaningTimeRange: {x: 4, y: 6}
+  adultIcons:
+  - {fileID: 21300000, guid: ae121ae9375cb064387b9fda31c13a5e, type: 3}
+  - {fileID: 21300000, guid: c8df610597e669046ac6468925d669e1, type: 3}
+  - {fileID: 21300000, guid: 63d4201e6f97bfc46ae0e0f0ea4f90df, type: 3}
+  - {fileID: 21300000, guid: e27ef67813c0f0943a5f457792f63793, type: 3}
+  pupIcons:
+  - {fileID: 21300000, guid: e7894dbbcf7b1d040b0955d2c86c5928, type: 3}
