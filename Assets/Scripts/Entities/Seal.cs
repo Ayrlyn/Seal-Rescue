@@ -116,7 +116,7 @@ public class Seal : ISave<SealSave>
     #region public methods
     public void DayPassed()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 8; i++)
         {
             HourPassed();
         }

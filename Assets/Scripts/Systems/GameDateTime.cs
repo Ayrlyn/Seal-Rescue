@@ -61,7 +61,7 @@ public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
         _currentHour++;
         EventMessenger.Instance.SendTimeAndDateMessage(TimePassed.Hour);
         if(CurrentHour == 9) { SaveManager.Instance.Save(); }
-        if(_currentHour < 22) { return; }
+        if(_currentHour < 20) { return; }
 
         _currentHour = 7;
         EventMessenger.Instance.SendTimeAndDateMessage(TimePassed.Day);
