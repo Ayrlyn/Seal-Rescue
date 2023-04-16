@@ -19,6 +19,31 @@ public class Resources : Singleton<Resources>, ISave<ResourcesSave>
     #endregion
 
     #region public methods
+    public bool HasRescources(List<KeyValuePair<ResourceTypes, int>> resources)
+    {
+        foreach (KeyValuePair<ResourceTypes, int> resourceRequirement in resources)
+        {
+            switch (resourceRequirement.Key)
+            {
+                case ResourceTypes.Food:
+                    if (Food < resourceRequirement.Value) { return false; }
+                    break;
+                case ResourceTypes.Materials:
+                    if (Materials < resourceRequirement.Value) { return false; }
+                    break;
+                case ResourceTypes.Medicine:
+                    if (Medicine < resourceRequirement.Value) { return false; }
+                    break;
+                case ResourceTypes.Money:
+                    if (Money < resourceRequirement.Value) { return false; }
+                    break;
+                default:
+                    Debug.LogError($"Invalid resource type: {resourceRequirement.Key}");
+                    break;
+            }
+        }
+        return true;
+    }
     public void SetResources(int? food = null, int? materials = null, int? medicine = null, int?money = null)
     {
         _food = food ?? _food;
@@ -53,6 +78,20 @@ public class Resources : Singleton<Resources>, ISave<ResourcesSave>
         if (quantity > Money) { return false; }
         _money -= quantity;
         return true;
+    }
+
+    public bool SpendResource(ResourceTypes resourceType, int quantity)
+    {
+        switch (resourceType)
+        {
+            case ResourceTypes.Food: return SpendFood(quantity);
+            case ResourceTypes.Materials: return SpendMaterials(quantity);
+            case ResourceTypes.Medicine: return SpendMedicine(quantity);
+            case ResourceTypes.Money: return SpendMoney(quantity);
+            default:
+                Debug.LogError($"Invalid Resource Tye: {resourceType}");
+                return false;
+        }
     }
     #endregion
 
