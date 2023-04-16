@@ -104,7 +104,6 @@ public class Building : MonoBehaviour
 	public virtual void OnTimePassed(TimePassed timePassed)
 	{
 		if (timePassed == TimePassed.Minute) { DoTask(); }
-
 	}
 
 	public virtual void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)

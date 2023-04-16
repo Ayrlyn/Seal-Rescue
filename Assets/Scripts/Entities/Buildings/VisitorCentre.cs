@@ -25,6 +25,13 @@ public class VisitorCentre : Building
 		EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
 		_prefabName = "VisitorCentre";
 	}
+	#endregion
+
+	#region override methods
+	public override void OnTimePassed(TimePassed timePassed)
+	{
+		base.OnTimePassed(timePassed);
+	}
 
 	public override void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
 	{
