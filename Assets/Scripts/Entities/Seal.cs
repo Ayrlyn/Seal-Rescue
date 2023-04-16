@@ -12,12 +12,13 @@ public class Seal : ISave<SealSave>
     SealHealth _health;
     [Range(1, 100)] int _healthValue;
     [Range(1, 100)] int _hunger;
-    Sprite _iconAdult;
-    Sprite _iconPup;
+    int _iconAdult;
+    int _iconPup;
     SealMood _mood;
     string _name;
     KeyValuePair<Month, int> _rescueDate;
     SealRescueProgress _rescueProgress;
+    SceneReferences _sceneReferences;
     SealSpecies _sealSpecies;
     float _weight;
     #endregion
@@ -53,8 +54,8 @@ public class Seal : ISave<SealSave>
     public SealHealth Health { get { return _health; } }
     public int HealthValue { get { return _healthValue; } }
     public int Hunger { get { return _hunger; } }
-    public Sprite IconAdult { get { return _iconAdult; } }
-    public Sprite IconPup { get { return _iconPup; } }
+    public Sprite IconAdult { get { return SceneReferences.GetIcons(SealSpecies, false)[_iconAdult]; } }
+    public Sprite IconPup { get { return SceneReferences.GetIcons(SealSpecies, true)[_iconPup]; } }
     public SealMood Mood { get { return _mood; } }
     public string Name { get { return _name; } }
     public KeyValuePair<Month, int> RescueDate { get { return _rescueDate; } }
@@ -83,6 +84,7 @@ public class Seal : ISave<SealSave>
             }
         }
     }
+    public SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     public SealSpecies SealSpecies { get { return _sealSpecies; } }
     public float Weight { get { return _weight; } }
     #endregion
@@ -99,6 +101,10 @@ public class Seal : ISave<SealSave>
         _rescueProgress = rescueProgress;
         _sealSpecies = sealSpecies;
         _weight = weight;
+
+        _iconAdult = Random.Range(0, SceneReferences.GetIcons(sealSpecies, false).Count);
+        _iconPup = Random.Range(0, SceneReferences.GetIcons(sealSpecies, false).Count);
+
     }
 
     public Seal(SealSave sealSave)
@@ -172,6 +178,8 @@ public class Seal : ISave<SealSave>
         _health = (SealHealth)save._health;
         _healthValue = save._healthValue;
         _hunger = save._hunger;
+        _iconAdult = save._iconAdult;
+        _iconPup = save._iconPup;
         _mood = (SealMood)save._mood;
         _name = save._name;
         _rescueDate = new KeyValuePair<Month, int>((Month)save._rescueMonth, save._rescueDay);
@@ -182,7 +190,7 @@ public class Seal : ISave<SealSave>
 
     public SealSave Save()
     {
-        return new SealSave(Age, Health, _healthValue, _hunger, Mood, Name, RescueDate, RescueProgress, SealSpecies, Weight);
+        return new SealSave(Age, Health, _healthValue, _hunger, _iconAdult, _iconPup, Mood, Name, RescueDate, RescueProgress, SealSpecies, Weight);
     }
     #endregion
 }

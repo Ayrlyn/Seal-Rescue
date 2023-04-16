@@ -33,6 +33,7 @@ public class TaskUI : MonoBehaviour
 		this.gameObject.SetActive(true);
 		_progressBar.fillAmount = 1f;
         _task = task;
+        if(_task.Seal != null) { _taskIcon.sprite = _task.Seal.IconPup; }
     }
 	#endregion
 

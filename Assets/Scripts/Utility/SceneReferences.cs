@@ -41,5 +41,19 @@ public class SceneReferences : Singleton<SceneReferences>
         Debug.LogError($"Invalid seal species: {species.ToString()}");
         return ("");
     }
+
+    public List<Sprite> GetIcons(SealSpecies species, bool isPup)
+    {
+        foreach (SealSpeciesData speciesData in SealSpecies)
+        {
+            if(speciesData.SealSpecies == species)
+            {
+                if (isPup) { return speciesData.PupIcons; }
+                return speciesData.AdultIcons;
+            }
+        }
+        Debug.LogError($"Invalid seal species: {species.ToString()}");
+        return new List<Sprite>();
+    }
     #endregion
 }
