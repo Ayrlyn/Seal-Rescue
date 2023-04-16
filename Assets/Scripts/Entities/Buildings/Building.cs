@@ -78,11 +78,6 @@ public class Building : MonoBehaviour
 	#endregion
 
 	#region public methods
-	public virtual void CheckTasks()
-    {
-
-	}
-
 	public bool DoesTaskExist(TaskType taskType, Seal seal = null)
 	{
 		foreach (Task task in _tasks)
@@ -92,32 +87,39 @@ public class Building : MonoBehaviour
 		return false;
 	}
 
-	public virtual bool HasSpaceForSeal() { return false; }
-	public virtual void OnTimePassed(TimePassed timePassed) 
-	{
-		if(timePassed == TimePassed.Minute) { DoTask(); }
-		
-	}
-
-	public virtual void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
-    {
-		employeeIconPrefab.transform.SetParent(_employeeParent);
-		employeeIconPrefab.transform.localPosition = Vector3.zero;
-
-		Employee employee = employeeIconPrefab.Employee;
-		if(employee.CurrentBuilding != null)
-		{
-			employee.CurrentBuilding.RemoveEmployee(employee);
-		}
-		_employees.Add(employee);
-		employee.CurrentBuilding = this;
-    }
-
 	public void RemoveEmployee(Employee employee)
     {
 		if (employee == null) { return; }
 		_employees.Remove(employee);
     }
+	#endregion
+
+	#region virtual methods
+	public virtual void CheckTasks()
+	{
+
+	}
+
+	public virtual bool HasSpaceForSeal() { return false; }
+	public virtual void OnTimePassed(TimePassed timePassed)
+	{
+		if (timePassed == TimePassed.Minute) { DoTask(); }
+
+	}
+
+	public virtual void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
+	{
+		employeeIconPrefab.transform.SetParent(_employeeParent);
+		employeeIconPrefab.transform.localPosition = Vector3.zero;
+
+		Employee employee = employeeIconPrefab.Employee;
+		if (employee.CurrentBuilding != null)
+		{
+			employee.CurrentBuilding.RemoveEmployee(employee);
+		}
+		_employees.Add(employee);
+		employee.CurrentBuilding = this;
+	}
 	#endregion
 
 	#region coroutines
