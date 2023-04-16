@@ -10,15 +10,16 @@ public class GameEventInfoDisplay : Singleton<GameEventInfoDisplay>
     [SerializeField] Button _buttonAccept;
     [SerializeField] Button _buttonDecline;
 	[SerializeField] TMP_Text _descriptionText;
-    [SerializeField] SealInfoPanel _sealInfoPanel;
 	[SerializeField] TMP_Text _titleText;
     #endregion
 
     #region local variables
     GameEventInfo _eventInfo;
+    SceneReferences _sceneReferences;
     #endregion
 
     #region getters and setters
+    public SceneReferences SceneReferences { get { if(_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     #endregion
 
     #region unity methods
@@ -35,7 +36,7 @@ public class GameEventInfoDisplay : Singleton<GameEventInfoDisplay>
         {
             case GameEventType.SealSpotted:
                 _buttonAccept.GetComponentInChildren<TMP_Text>().text = "Rescue!";
-                _buttonAccept.interactable = SealHospital.Instance.HasSpaceForSeal;
+                _buttonAccept.interactable = SceneReferences.SealHospital.HasSpaceForSeal();
                 _buttonAccept.onClick.AddListener(() => RescueSeal(_eventInfo.Seal));
                 break;
         }
@@ -46,7 +47,7 @@ public class GameEventInfoDisplay : Singleton<GameEventInfoDisplay>
         this.gameObject.SetActive(false);
         seal.RescueMe();
         GameEventsUI.Instance.RemoveSealEvent(seal);
-        _sealInfoPanel.ShowSeal(seal);
+        SceneReferences.Instance.SealInfoPanel.ShowSeal(seal, true);
     }
     #endregion
 
