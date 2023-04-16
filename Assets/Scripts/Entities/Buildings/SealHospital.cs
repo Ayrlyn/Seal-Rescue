@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SealHospital : Singleton<SealHospital>
+public class SealHospital : Building
 {
+    #region serializable variables
+    #endregion
+
     #region local variables
-    List<Seal> _residentSeals = new List<Seal>();
-    Dictionary<Seal, Task> _sealsAndTasks = new Dictionary<Seal, Task>();
     int _sealCapacity = 2;
-    List<Task> _tasks = new List<Task>();
     #endregion
 
     #region getters and setters
-    public bool HasSpaceForSeal { get { return ResidentSeals.Count <= SealCapacity; } }
-    public List<Seal> ResidentSeals { get { return _residentSeals; } }
+    public List<Seal> ResidentSeals { get 
+        {
+            List<Seal> residentSeals = new List<Seal>();
+            foreach (Seal seal in Game.Seals)
+            {
+                if(seal.RescueProgress == SealRescueProgress.Arrival || seal.RescueProgress == SealRescueProgress.Quarantine) { residentSeals.Add(seal); }
+            }
+            return residentSeals;
+        } 
+    }
     public int SealCapacity { get { return _sealCapacity; } }
     #endregion
 
     #region unity methods
-    void OnDestroy()
-    {
-        try { EventMessenger.Instance.OnTimeAndDateChange -= OnTimePassed; } 
-        catch { }
-    }
     #endregion
 
     #region local methods
@@ -30,33 +33,119 @@ public class SealHospital : Singleton<SealHospital>
     {
         switch (seal.Health)
         {
-            case SealHealth.Healthy:
-                break;
             case SealHealth.Injured:
+                CreateTask(TaskType.TreatInjury, seal);
                 break;
             case SealHealth.Sick:
-                break;
-            case SealHealth.Starving:
+                CreateTask(TaskType.TreatIllness, seal);
                 break;
         }
-
         switch (seal.Mood)
         {
             case SealMood.Hungry:
+                CreateTask(TaskType.Feed, seal);
                 break;
         }
     }
 
-    void OnTimePassed(TimePassed time)
+    void CreateTask(TaskType taskType, Seal seal = null)
     {
+        Task newTask = new Task();
+        switch (taskType)
+        {
+            case TaskType.Clean:
+                newTask = new Task(60, new List<KeyValuePair<ResourceTypes, int>>(), taskType);
+                break;
+            case TaskType.Feed:
+                newTask = new Task(
+                    60, 
+                    new List<KeyValuePair<ResourceTypes, int>>() 
+                    { 
+                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Food, 5), 
+                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Medicine, 2) 
+                    },
+                    taskType, 
+                    seal);
+                break;
+            case TaskType.Maintenance:
+                newTask = new Task(
+                    120,
+                    new List<KeyValuePair<ResourceTypes, int>>() { new KeyValuePair<ResourceTypes, int>(ResourceTypes.Materials, 10) },
+                    taskType);
+                break;
+            case TaskType.TreatIllness:
+                newTask = new Task(
+                    60,
+                    new List<KeyValuePair<ResourceTypes, int>> { new KeyValuePair<ResourceTypes, int>(ResourceTypes.Medicine, 5) },
+                    taskType,
+                    seal);
+                break;
+            case TaskType.TreatInjury:
+                newTask = new Task(
+                    90,
+                    new List<KeyValuePair<ResourceTypes, int>>() 
+                    {
+                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Medicine, 3),
+                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Materials, 2)
+                    },
+                    taskType,
+                    seal);
+                break;
+            default:
+                Debug.LogError($"Invalid Task Type in Seal Hospital: {taskType}");
+                break;
+        }
+        if(!DoesTaskExist(newTask.TaskType, newTask.Seal))
+        {
+            _tasks.Add(newTask);
+            if(_tasks.Count == 1) { _taskUI.Init(newTask); }
+        }
+    }
+
+    bool DoesTaskExist(TaskType taskType, Seal seal = null)
+    {
+        foreach (Task task in _tasks)
+        {
+            if(task.Seal == seal && task.TaskType == taskType) { return true; }
+        }
+        return false;
+    }
+    #endregion
+
+    #region public methods
+    public override void CheckTasks()
+    {
+        foreach (Seal seal in ResidentSeals)
+        {
+            CheckSealStatus(seal);
+        }
+    }
+
+    public override bool HasSpaceForSeal()
+    {
+        return ResidentSeals.Count <= SealCapacity;
+    }
+    public void Init()
+    {
+        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
+        foreach (Seal seal in ResidentSeals)
+        {
+            CheckSealStatus(seal);
+        }
+        _prefabName = "SealHospital";
+    }
+
+    public override void OnTimePassed(TimePassed time)
+    {
+        base.OnTimePassed(time);
         switch (time)
         {
             case TimePassed.Minute:
                 break;
             case TimePassed.Hour:
-                foreach (Seal seal in _residentSeals)
+                foreach (Seal seal in ResidentSeals)
                 {
-                    if (!_sealsAndTasks.ContainsKey(seal)) { CheckSealStatus(seal); }
+                    CheckSealStatus(seal);
                 }
                 break;
             case TimePassed.Day:
@@ -71,12 +160,11 @@ public class SealHospital : Singleton<SealHospital>
                 break;
         }
     }
-    #endregion
 
-    #region public methods
-    public void Init()
+    public override void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
     {
-        EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
+        base.ReceiveEmployee(employeeIconPrefab);
+        employeeIconPrefab.Employee.Location = "SealHospital";
     }
     #endregion
 }
