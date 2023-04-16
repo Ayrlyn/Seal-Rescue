@@ -49,6 +49,7 @@ public class Building : MonoBehaviour
 	#endregion
 
 	#region local methods
+
 	void DoTask()
     {
 		if(CurrentTask == null || Employees.IsEmpty()) { return; }
@@ -80,7 +81,17 @@ public class Building : MonoBehaviour
 	public virtual void CheckTasks()
     {
 
-    }
+	}
+
+	public bool DoesTaskExist(TaskType taskType, Seal seal = null)
+	{
+		foreach (Task task in _tasks)
+		{
+			if (task.Seal == seal && task.TaskType == taskType) { return true; }
+		}
+		return false;
+	}
+
 	public virtual bool HasSpaceForSeal() { return false; }
 	public virtual void OnTimePassed(TimePassed timePassed) 
 	{

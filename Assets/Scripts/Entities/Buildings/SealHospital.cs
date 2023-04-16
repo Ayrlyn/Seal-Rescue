@@ -101,15 +101,6 @@ public class SealHospital : Building
             if(_tasks.Count == 1) { _taskUI.Init(newTask); }
         }
     }
-
-    bool DoesTaskExist(TaskType taskType, Seal seal = null)
-    {
-        foreach (Task task in _tasks)
-        {
-            if(task.Seal == seal && task.TaskType == taskType) { return true; }
-        }
-        return false;
-    }
     #endregion
 
     #region public methods
