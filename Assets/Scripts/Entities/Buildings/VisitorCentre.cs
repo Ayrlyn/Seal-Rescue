@@ -31,7 +31,33 @@ public class VisitorCentre : Building
 	public override void OnTimePassed(TimePassed timePassed)
 	{
 		base.OnTimePassed(timePassed);
-	}
+        switch (timePassed)
+        {
+            case TimePassed.Minute:
+                break;
+            case TimePassed.Hour:
+				if(GameDateTime.CurrentHour >= 9 && GameDateTime.CurrentHour <= 17)
+                {
+					Task newTask = new Task(120, new List<KeyValuePair<ResourceTypes, int>>(), TaskType.Tourism);
+					if(DoesTaskExist(newTask.TaskType) && Random.Range(0, 30) < 100) 
+					{ 
+						_tasks.Add(newTask);
+						if (_tasks.Count == 1) { _taskUI.Init(newTask); }
+					}
+                }
+                break;
+            case TimePassed.Day:
+                break;
+            case TimePassed.Week:
+                break;
+            case TimePassed.Month:
+                break;
+            case TimePassed.Year:
+                break;
+            default:
+                break;
+        }
+    }
 
 	public override void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
 	{

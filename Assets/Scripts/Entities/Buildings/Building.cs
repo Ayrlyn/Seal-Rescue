@@ -14,6 +14,7 @@ public class Building : MonoBehaviour
 
 	#region local variables
 	Game _game;
+	GameDateTime _gameDateTime;
     #endregion
 
     #region getters and setters
@@ -33,6 +34,7 @@ public class Building : MonoBehaviour
 	public Transform EmployeeParent { get { return _employeeParent; } }
 	public List<Employee> Employees { get { return _employees; } }
 	public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
+	public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
 	#endregion
 
 	#region unity methods
