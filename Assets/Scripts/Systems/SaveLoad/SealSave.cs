@@ -6,6 +6,7 @@ public class SealSave
 {
     public int _age;
     public int _health;
+    public int _healthValue;
     public int _hunger;
     public int _mood;
     public string _name;
@@ -15,12 +16,13 @@ public class SealSave
     public int _species;
     public float _weight;
 
-    public SealSave(int age, SealHealth health, int hunger, SealMood mood, string name, KeyValuePair<Month, int> rescueDate, SealRescueProgress rescueProgress, 
+    public SealSave(int age, SealHealth health, int healthValue, int hunger, SealMood mood, string name, KeyValuePair<Month, int> rescueDate, SealRescueProgress rescueProgress, 
         SealSpecies species, float weight)
     {
         _age = age;
         _health = (int)health;
         _hunger = hunger;
+        _healthValue = healthValue;
         _mood = (int)mood;
         _name = name;
         _rescueDay = rescueDate.Value;
