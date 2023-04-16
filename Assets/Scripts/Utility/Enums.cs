@@ -50,8 +50,7 @@ public enum SealHealth
     DEFAULT = 0,
     Healthy = 10,
     Injured = 20,
-    Sick = 30,
-    Starving = 40
+    Sick = 30
 }
 
 public enum SealMood
@@ -87,6 +86,17 @@ public enum SealSpecies
     DEFAULT = 0,
     CommonSeal = 10,
     GreySeal = 20
+}
+
+public enum TaskType
+{
+    DEFAULT = 0,
+    Clean = 10,
+    Feed = 20,
+    Maintenance = 30,
+    Tourism = 40,
+    TreatIllness = 50,
+    TreatInjury = 60
 }
 
 public enum TimePassed
