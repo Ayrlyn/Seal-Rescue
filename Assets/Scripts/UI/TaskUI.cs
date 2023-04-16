@@ -20,7 +20,8 @@ public class TaskUI : MonoBehaviour
     #region unity methods
     void Update()
     {
-        _progressBar.fillAmount = (float)_task.MinutesRemaining / (float)_task.MinutesRequired;
+        if(_task != null) { _progressBar.fillAmount = (float)_task.MinutesRemaining / (float)_task.MinutesRequired; }
+        
     }
     #endregion
 
