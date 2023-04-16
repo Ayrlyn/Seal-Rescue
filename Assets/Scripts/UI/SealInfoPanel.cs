@@ -15,6 +15,7 @@ public class SealInfoPanel : MonoBehaviour
 	[SerializeField] TMP_Text _sealRescuedDateText;
 	[SerializeField] TMP_Text _sealSpeciesText;
 	[SerializeField] TMP_Text _sealWeightText;
+	[SerializeField] TMP_Text _titleText;
 	#endregion
 
 	#region local variables
@@ -30,16 +31,17 @@ public class SealInfoPanel : MonoBehaviour
 	#endregion
 
 	#region public methods
-	public void ShowSeal(Seal seal)
+	public void ShowSeal(Seal seal, bool newSeal = false)
     {
 		this.gameObject.SetActive(true);
-		_sealAgeText.text += $"{seal.Age} months";
-		_sealCurrentProgressText.text += $"{seal.RescueProgressString}";
-		_sealHealthText.text += $"{seal.Health}";
-		_sealNameText.text += $"{seal.Name}";
-		_sealRescuedDateText.text += $"{seal.RescueDate.Key} ´{seal.RescueDate.Value}";
-		_sealSpeciesText.text += $"{SceneReferences.Instance.GetDisplayName(seal.SealSpecies)}";
-		_sealWeightText.text += $"{seal.Weight} kg";
+		_sealAgeText.text = $"Age: {seal.Age} months";
+		_sealCurrentProgressText.text = $"Progress: {seal.RescueProgressString}";
+		_sealHealthText.text = $"Health: {seal.Health}";
+		_sealNameText.text = $"Name: {seal.Name}";
+		_sealRescuedDateText.text = $"Rescued: {seal.RescueDate.Key} {seal.RescueDate.Value}";
+		_sealSpeciesText.text = $"Species: {SceneReferences.Instance.GetDisplayName(seal.SealSpecies)}";
+		_sealWeightText.text = $"Weight: {seal.Weight:F1} kg";
+		_titleText.text = newSeal? "New Seal" : $"{seal.CurrentLocationString}";
     }
 	#endregion
 
