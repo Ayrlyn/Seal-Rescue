@@ -57,7 +57,7 @@ public class Seal : ISave<SealSave>
     public Sprite IconAdult { get { return SceneReferences.GetIcons(SealSpecies, false)[_iconAdult]; } }
     public Sprite IconPup { get { return SceneReferences.GetIcons(SealSpecies, true)[_iconPup]; } }
     public SealMood Mood { get { return _mood; } }
-    public string Name { get { return _name; } }
+    public string Name { get { return _name; } set { _name = value; } }
     public KeyValuePair<Month, int> RescueDate { get { return _rescueDate; } }
     public SealRescueProgress RescueProgress { get { return _rescueProgress; } }
     public string RescueProgressString
