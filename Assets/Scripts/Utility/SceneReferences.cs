@@ -8,6 +8,7 @@ public class SceneReferences : Singleton<SceneReferences>
     [Header("UI Elements")]
     [SerializeField] Canvas _canvas;
     [SerializeField] Transform _eventsButtonParent;
+    [SerializeField] GameEventInfoDisplay _gameEventInfoDisplay;
     [SerializeField] SealInfoPanel _sealInfoPanel;
     [Header("Buildings")]
     [SerializeField] Nursery _nursery;
@@ -29,6 +30,7 @@ public class SceneReferences : Singleton<SceneReferences>
     public Transform EventsButtonParent { get { return _eventsButtonParent; } }
     public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
     public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
+    public GameEventInfoDisplay GameEventInfoDisplay { get { return _gameEventInfoDisplay; } }
     public Nursery Nursery { get { return _nursery; } }
     public Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
     public SealHospital SealHospital { get { return _sealHospital; } }
