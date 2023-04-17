@@ -48,6 +48,8 @@ public class Nursery : Building
 				CreateTask(TaskType.Feed, seal);
 				break;
 		}
+        int randomInt = Random.Range(0, 100);
+        if(randomInt <= 25 && (int)seal.RescueProgress < 80 && seal.IsHappyAndHealthy) { CreateTask(TaskType.Transfer, seal); }
     }
 
     void CreateTask(TaskType taskType, Seal seal = null)
@@ -73,6 +75,13 @@ public class Nursery : Building
                     120,
                     new List<KeyValuePair<ResourceTypes, int>>() { new KeyValuePair<ResourceTypes, int>(ResourceTypes.Materials, 10) },
                     taskType);
+                break;
+            case TaskType.Transfer:
+                newTask = new Task(
+                    30,
+                    new List<KeyValuePair<ResourceTypes, int>>(),
+                    taskType,
+                    seal);
                 break;
             case TaskType.TreatIllness:
                 newTask = new Task(
