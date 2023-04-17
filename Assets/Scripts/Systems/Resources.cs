@@ -19,6 +19,48 @@ public class Resources : Singleton<Resources>, ISave<ResourcesSave>
     #endregion
 
     #region public methods
+    public void GainFood(int quantity)
+    {
+        _food += quantity;
+    }
+
+    public void GainMaterials(int quantity)
+    {
+        _materials += quantity;
+    }
+
+    public void GainMedicine(int quantity)
+    {
+        _medicine += quantity;
+    }
+
+    public void GainMoney(int quantity)
+    {
+        _money += quantity;
+    }
+
+    public void GainResource(ResourceTypes resourceType, int quantity)
+    {
+        switch (resourceType)
+        {
+            case ResourceTypes.Food:
+                GainFood(quantity);
+                break;
+            case ResourceTypes.Materials:
+                GainMaterials(quantity);
+                break;
+            case ResourceTypes.Medicine:
+                GainMedicine(quantity);
+                break;
+            case ResourceTypes.Money:
+                GainMoney(quantity);
+                break;
+            default:
+                Debug.LogError($"Invalid resource type: {resourceType}");
+                break;
+        }
+    }
+
     public bool HasRescources(List<KeyValuePair<ResourceTypes, int>> resources)
     {
         foreach (KeyValuePair<ResourceTypes, int> resourceRequirement in resources)
