@@ -46,6 +46,10 @@ public class SealHospital : Building
                 CreateTask(TaskType.Feed, seal);
                 break;
         }
+        if(seal.Health == SealHealth.Healthy && seal.Mood != SealMood.Hungry)
+        {
+            CreateTask(TaskType.Transfer, seal);
+        }
     }
 
     void CreateTask(TaskType taskType, Seal seal = null)
@@ -72,6 +76,13 @@ public class SealHospital : Building
                     120,
                     new List<KeyValuePair<ResourceTypes, int>>() { new KeyValuePair<ResourceTypes, int>(ResourceTypes.Materials, 10) },
                     taskType);
+                break;
+            case TaskType.Transfer:
+                newTask = new Task(
+                    30,
+                    new List<KeyValuePair<ResourceTypes, int>>(),
+                    taskType,
+                    seal);
                 break;
             case TaskType.TreatIllness:
                 newTask = new Task(
@@ -140,8 +151,10 @@ public class SealHospital : Building
                 }
                 break;
             case TimePassed.Day:
+                CreateTask(TaskType.Clean);
                 break;
             case TimePassed.Week:
+                CreateTask(TaskType.Maintenance);
                 break;
             case TimePassed.Month:
                 break;
