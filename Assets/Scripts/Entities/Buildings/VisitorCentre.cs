@@ -39,7 +39,8 @@ public class VisitorCentre : Building
 				if(GameDateTime.CurrentHour >= 9 && GameDateTime.CurrentHour <= 17)
                 {
 					Task newTask = new Task(120, new List<KeyValuePair<ResourceTypes, int>>(), TaskType.Tourism);
-					if(DoesTaskExist(newTask.TaskType) && Random.Range(0, 30) < 100) 
+					int randomInt = Random.Range(0, 100);
+					if(!DoesTaskExist(newTask.TaskType) && randomInt < 30) 
 					{ 
 						_tasks.Add(newTask);
 						if (_tasks.Count == 1) { _taskUI.Init(newTask); }
