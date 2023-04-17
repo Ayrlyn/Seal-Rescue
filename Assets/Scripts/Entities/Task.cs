@@ -22,6 +22,25 @@ public class Task
     public List<KeyValuePair<ResourceTypes, int>> ResourcesRequired { get { return _resourcesRequired; } }
     public Seal Seal { get { return _seal; } }
     public TaskType TaskType { get { return _taskType; } }
+    public string TaskTypeString
+    {
+        get
+        {
+            switch (TaskType)
+            {
+                case TaskType.Clean: return $"Clean up after the seals";
+                case TaskType.Feed: return $"Time to feed {Seal.Name}";
+                case TaskType.Maintenance: return $"This buildings needs maintenance";
+                case TaskType.Tourism: return $"Visitors have come to see the centre";
+                case TaskType.Transfer: return $"Moving {Seal.Name} to the next level of care";
+                case TaskType.TreatIllness: return $"{Seal.Name} is sick";
+                case TaskType.TreatInjury: return $"Treat {Seal.Name}'s injury";
+                default:
+                    Debug.LogError($"INVALID TASK TYPE: {TaskType}");
+                    return "";
+            }
+        }
+    }
     #endregion
 
     #region constructors

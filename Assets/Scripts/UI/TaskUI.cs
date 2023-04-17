@@ -25,8 +25,11 @@ public class TaskUI : MonoBehaviour
     #region unity methods
     void Update()
     {
-        if(_task != null) { _progressBar.fillAmount = (float)_task.MinutesRemaining / (float)_task.MinutesRequired; }
-        _popupTimeRemaining.text = $"Time Remaining: {(int)_task.MinutesRemaining}";
+        if(_task != null) 
+        { 
+            _progressBar.fillAmount = (float)_task.MinutesRemaining / (float)_task.MinutesRequired;
+            _popupTimeRemaining.text = $"Time Remaining: {(int)_task.MinutesRemaining}";
+        }
     }
     #endregion
 
@@ -47,7 +50,7 @@ public class TaskUI : MonoBehaviour
         _infoPopup.SetActive(!_infoPopup.activeSelf);
         if (!_infoPopup.activeSelf) { return; }
 
-        _popupTitle.text = _task.TaskType.ToString();
+        _popupTitle.text = _task.TaskTypeString;
 
         if(_task.ResourcesRequired.Count == 0) 
         {
@@ -55,7 +58,7 @@ public class TaskUI : MonoBehaviour
             return; 
         }
 
-        string resourcesString = "Resources:";
+        string resourcesString = "Requirements:";
         foreach (KeyValuePair<ResourceTypes, int> resourceRequired in _task.ResourcesRequired)
         {
             resourcesString += $"\n - {resourceRequired.Value} {resourceRequired.Key.ToString()}";
