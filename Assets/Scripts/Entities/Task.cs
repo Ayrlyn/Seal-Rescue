@@ -60,6 +60,15 @@ public class Task
     #endregion
 
     #region local methods
+    void ReleaseSeal()
+    {
+        GameEventInfo gameEventInfo = new GameEventInfo(
+            $"You have successfully raised {Seal.Name} and now they are ready to be released into the wild.",
+            $"Release {Seal.Name}",
+            GameEventType.SealRelease);
+        SceneReferences.GameEventInfoDisplay.ShowEventInfo(gameEventInfo);
+    }
+
     void TransferSeal()
     {
         Seal.IncreaseProgress();
@@ -90,14 +99,19 @@ public class Task
                 SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
                 break;
             case SealRescueProgress.NurseryPool:
+                SceneReferences.FirstPool.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
                 break;
             case SealRescueProgress.RockPool:
+                SceneReferences.FirstPool.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
                 break;
             case SealRescueProgress.PhysioPool:
+                SceneReferences.FirstPool.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
                 break;
             case SealRescueProgress.PreReleasePool:
+                SceneReferences.FirstPool.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
                 break;
             case SealRescueProgress.Release:
+                ReleaseSeal();
                 break;
             default:
                 break;

@@ -24,6 +24,7 @@ public class SealSpeciesData : ScriptableObject
     public List<Month> LatePuppingMonths { get { return latePuppingMonths; } }
     public List<Month> PuppingMonths { get { return puppingMonths; } }
     public List<Sprite> PupIcons { get { return pupIcons; } }
+    public float ReleaseWeightMinimum { get { return releaseWeightRange.x; } }
     public string SpeciesName { get { return speciesName; } }
     public SealSpecies SealSpecies { get { return sealSpecies; } }
     #endregion

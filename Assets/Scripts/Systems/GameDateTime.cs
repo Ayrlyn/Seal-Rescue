@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
 {
     #region editor variables
-    [Range(1, 5)]public int _timeScaleMultiplier = 1;
     public float _timeToPassOneMinute = 0.5f;
     #endregion
 
@@ -30,6 +29,7 @@ public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
         { Month.November,30},
         {Month.December, 31 }
     };
+    int _timeScaleMultiplier = 1;
     #endregion
 
     #region getters and setters
@@ -97,6 +97,11 @@ public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
         _currentHour = hour;
         _currentMinute = minute;
         _currentMonth = new KeyValuePair<Month, int>(month.Key, month.Value);
+    }
+
+    public void SetTimeScaleMultiplier(int multiplier)
+    {
+        _timeScaleMultiplier = multiplier;
     }
     #endregion
 

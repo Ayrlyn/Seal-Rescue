@@ -122,8 +122,16 @@ public class Seal : ISave<SealSave>
             HourPassed();
         }
         if(_hunger <= 0) { return; }
-        if(_hunger <= 50) { _weight += Random.Range(0.06f, 0.08f); }
-        else { _weight += Random.Range(0.07f, 0.11f); }
+
+        float randomWeightGain = Random.Range(0.1f, 0.15f);
+
+        if(_hunger <= 50) {randomWeightGain /= 2f; }
+        if((int)RescueProgress > 80f) { randomWeightGain *= 1.75f; }
+        else if((int)RescueProgress > 30f){ randomWeightGain *= 1.25f; }
+        _weight += randomWeightGain;
+        _healthValue += Random.Range(10, 20);
+        _healthValue = Mathf.Min(100, _healthValue);
+        if (_healthValue >= 75) { _health = SealHealth.Healthy; }
 
         if(GameDateTime.CurrentMonth.Value == RescueDate.Value) { _age++; }
     }
@@ -151,7 +159,16 @@ public class Seal : ISave<SealSave>
 
     public void IncreaseProgress()
     {
-        _rescueProgress = (SealRescueProgress)((int)_rescueProgress + 20);
+        if((int)RescueProgress < 120) 
+        { 
+            _rescueProgress = (SealRescueProgress)((int)_rescueProgress + 20);
+            return;
+        }
+        
+        if(Weight > SceneReferences.GetSpeciesData(SealSpecies).ReleaseWeightMinimum)
+        {
+            _rescueProgress = SealRescueProgress.Release;
+        }
     }
 
     public void RescueMe()

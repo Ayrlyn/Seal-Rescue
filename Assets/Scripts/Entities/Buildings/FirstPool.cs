@@ -2,54 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SealHospital : Building
+public class FirstPool : Building
 {
-    #region serializable variables
-    #endregion
+	#region serialiazable variables
+	#endregion
 
-    #region local variables
-    int _sealCapacity = 2;
-    #endregion
+	#region local variables
+	int _sealCapacity = 6;
+	#endregion
 
-    #region getters and setters
-    public List<Seal> ResidentSeals { get 
-        {
-            List<Seal> residentSeals = new List<Seal>();
-            foreach (Seal seal in Game.Seals)
-            {
-                if(seal.RescueProgress == SealRescueProgress.Arrival || seal.RescueProgress == SealRescueProgress.Quarantine) { residentSeals.Add(seal); }
-            }
-            return residentSeals;
-        } 
-    }
-    public int SealCapacity { get { return _sealCapacity; } }
-    #endregion
+	#region getters and setters
+	public List<Seal> ResidentSeals
+	{
+		get
+		{
+			List<Seal> residentSeals = new List<Seal>();
+			foreach (Seal seal in Game.Seals)
+			{
+				if ((int)seal.RescueProgress > 80) { residentSeals.Add(seal); }
+			}
+			return residentSeals;
+		}
+	}
+	public int SealCapacity { get { return _sealCapacity; } }
+	#endregion
 
-    #region unity methods
-    #endregion
+	#region unity methods
+	#endregion
 
-    #region local methods
-    void CheckSealStatus(Seal seal)
-    {
-        switch (seal.Health)
-        {
-            case SealHealth.Injured:
-                CreateTask(TaskType.TreatInjury, seal);
-                break;
-            case SealHealth.Sick:
-                CreateTask(TaskType.TreatIllness, seal);
-                break;
-        }
-        switch (seal.Mood)
-        {
-            case SealMood.Hungry:
-                CreateTask(TaskType.Feed, seal);
-                break;
-        }
-        if(seal.IsHappyAndHealthy && SceneReferences.Nursery.HasSpaceForSeal())
-        {
-            CreateTask(TaskType.Transfer, seal);
-        }
+	#region local methods
+	void CheckSealStatus(Seal seal)
+	{
+		switch (seal.Health)
+		{
+			case SealHealth.Injured:
+				CreateTask(TaskType.TreatInjury, seal);
+				break;
+			case SealHealth.Sick:
+				CreateTask(TaskType.TreatIllness, seal);
+				break;
+		}
+		switch (seal.Mood)
+		{
+			case SealMood.Hungry:
+				CreateTask(TaskType.Feed, seal);
+				break;
+		}
+		if (seal.IsHappyAndHealthy) { CreateTask(TaskType.Transfer, seal); }
     }
 
     void CreateTask(TaskType taskType, Seal seal = null)
@@ -62,13 +61,12 @@ public class SealHospital : Building
                 break;
             case TaskType.Feed:
                 newTask = new Task(
-                    60, 
-                    new List<KeyValuePair<ResourceTypes, int>>() 
-                    { 
-                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Food, 5), 
-                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Medicine, 2) 
+                    60,
+                    new List<KeyValuePair<ResourceTypes, int>>()
+                    {
+                        new KeyValuePair<ResourceTypes, int>(ResourceTypes.Food, 8)
                     },
-                    taskType, 
+                    taskType,
                     seal);
                 break;
             case TaskType.Maintenance:
@@ -94,7 +92,7 @@ public class SealHospital : Building
             case TaskType.TreatInjury:
                 newTask = new Task(
                     90,
-                    new List<KeyValuePair<ResourceTypes, int>>() 
+                    new List<KeyValuePair<ResourceTypes, int>>()
                     {
                         new KeyValuePair<ResourceTypes, int>(ResourceTypes.Medicine, 3),
                         new KeyValuePair<ResourceTypes, int>(ResourceTypes.Materials, 2)
@@ -103,13 +101,13 @@ public class SealHospital : Building
                     seal);
                 break;
             default:
-                Debug.LogError($"Invalid Task Type in Seal Hospital: {taskType}");
+                Debug.LogError($"Invalid Task Type in First Pool: {taskType}");
                 break;
         }
-        if(!DoesTaskExist(newTask.TaskType, newTask.Seal))
+        if (!DoesTaskExist(newTask.TaskType, newTask.Seal))
         {
             _tasks.Add(newTask);
-            if(_tasks.Count == 1) { _taskUI.Init(newTask); }
+            if (_tasks.Count == 1) { _taskUI.Init(newTask); }
         }
     }
     #endregion
@@ -127,6 +125,7 @@ public class SealHospital : Building
     {
         return ResidentSeals.Count <= SealCapacity;
     }
+
     public void Init()
     {
         EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
@@ -134,7 +133,7 @@ public class SealHospital : Building
         {
             CheckSealStatus(seal);
         }
-        _prefabName = "SealHospital";
+        _prefabName = "Pool";
     }
 
     public override void OnTimePassed(TimePassed time)
@@ -168,7 +167,10 @@ public class SealHospital : Building
     public override void ReceiveEmployee(EmployeeIconPrefab employeeIconPrefab)
     {
         base.ReceiveEmployee(employeeIconPrefab);
-        employeeIconPrefab.Employee.Location = "SealHospital";
+        employeeIconPrefab.Employee.Location = "Pool";
     }
+    #endregion
+
+    #region coroutines
     #endregion
 }

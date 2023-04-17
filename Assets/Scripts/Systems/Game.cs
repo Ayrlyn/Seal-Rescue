@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Game : Singleton<Game>, ISave<GameSave>
 {
@@ -49,6 +51,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
         SaveManager.Load();
         GameEventController.Init();
         SceneReferences.Nursery.Init();
+        SceneReferences.FirstPool.Init();
         SceneReferences.SealHospital.Init();
         SceneReferences.VisitorCentre.Init();
         UpkeepController.Init();
@@ -62,31 +65,6 @@ public class Game : Singleton<Game>, ISave<GameSave>
     #endregion
 
     #region local methods
-    void GenerateEmployee(Employee employee)
-    {
-        Employees.Add(employee);
-        EmployeeIconPrefab iconPrefab = Instantiate(_employeeIconPrefab);
-        iconPrefab.Init(employee);
-        if (!_employeesAndPrefabs.ContainsKey(employee)) { _employeesAndPrefabs.Add(employee, iconPrefab); }
-        else if(_employeesAndPrefabs[employee] == null) { _employeesAndPrefabs[employee] = iconPrefab; }
-
-        switch (employee.Location)
-        {
-            case "Nursery":
-                SceneReferences.Nursery.ReceiveEmployee(iconPrefab);
-                break;
-            case "SealHospital":
-                SceneReferences.SealHospital.ReceiveEmployee(iconPrefab);
-                break;
-            case "VisitorCentre":
-                SceneReferences.VisitorCentre.ReceiveEmployee(iconPrefab);
-                break;
-            default:
-                break;
-        }
-        iconPrefab.transform.localPosition = Vector3.zero;
-        iconPrefab.transform.localScale = Vector3.one;
-    }
 
     void GenerateSeal(Seal seal)
     {
@@ -121,20 +99,84 @@ public class Game : Singleton<Game>, ISave<GameSave>
                 SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.NurseryPool:
+                SceneReferences.FirstPool.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.RockPool:
+                SceneReferences.FirstPool.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.PhysioPool:
+                SceneReferences.FirstPool.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.PreReleasePool:
+                SceneReferences.FirstPool.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.Release:
+                SceneReferences.FirstPool.ReceiveSeal(iconPrefab);
+                break;
+            default:
+                Debug.LogError($"Invalid Seal Rescue Progress: {seal.RescueProgress}");
+                break;
+        }
+        iconPrefab.transform.localPosition = Vector3.zero;
+        button.onClick.AddListener(() => SceneReferences.SealInfoPanel.ShowSeal(seal));
+    }
+    #endregion
+
+    #region public methods
+    public void GenerateEmployee(Employee employee)
+    {
+        Employees.Add(employee);
+        EmployeeIconPrefab iconPrefab = Instantiate(_employeeIconPrefab);
+        iconPrefab.Init(employee);
+        if (!_employeesAndPrefabs.ContainsKey(employee)) { _employeesAndPrefabs.Add(employee, iconPrefab); }
+        else if (_employeesAndPrefabs[employee] == null) { _employeesAndPrefabs[employee] = iconPrefab; }
+
+        switch (employee.Location)
+        {
+            case "Pool":
+                SceneReferences.FirstPool.ReceiveEmployee(iconPrefab);
+                break;
+            case "Nursery":
+                SceneReferences.Nursery.ReceiveEmployee(iconPrefab);
+                break;
+            case "SealHospital":
+                SceneReferences.SealHospital.ReceiveEmployee(iconPrefab);
+                break;
+            case "VisitorCentre":
+                SceneReferences.VisitorCentre.ReceiveEmployee(iconPrefab);
                 break;
             default:
                 break;
         }
         iconPrefab.transform.localPosition = Vector3.zero;
-        button.onClick.AddListener(() => SceneReferences.SealInfoPanel.ShowSeal(seal));
+        iconPrefab.transform.localScale = Vector3.one;
+    }
+
+    public void HireEmployee()
+    {
+        Employee employee = new Employee(
+            SceneReferences.EmployeeNames.GetRandomElement(),
+            "VisitorCentre", 200,
+            (WorkerSkills)Random.Range(1, Enum.GetValues(typeof(WorkerSkills)).Length));
+        GenerateEmployee(employee);
+    }
+
+    public void RaiseDonations()
+    {
+        int randomFood = Random.Range(3, 8) * 5;
+        int randomMaterials = Random.Range(2, 5) * 10;
+        int randomMedicine = Random.Range(1, 4) * 5;
+        int randomMoney = Random.Range(4, 16) * 5;
+        Resources.GainFood(randomFood);
+        Resources.GainMaterials(randomMaterials);
+        Resources.GainMedicine(randomMedicine);
+        Resources.GainMoney(randomMoney);
+    }
+
+    public void RaiseFunds()
+    {
+        int randomFunds = Random.Range(5, 20) * 10;
+        Resources.GainMoney(randomFunds);
     }
     #endregion
 

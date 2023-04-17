@@ -16,10 +16,11 @@ public class Building : MonoBehaviour
 	#region local variables
 	Game _game;
 	GameDateTime _gameDateTime;
-    #endregion
+	SceneReferences _sceneReferences;
+	#endregion
 
-    #region getters and setters
-    public Task CurrentTask
+	#region getters and setters
+	public Task CurrentTask
 	{
 		get
 		{
@@ -36,6 +37,7 @@ public class Building : MonoBehaviour
 	public List<Employee> Employees { get { return _employees; } }
 	public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
 	public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
+	public SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
 	#endregion
 
 	#region unity methods

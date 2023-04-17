@@ -49,7 +49,7 @@ public class Nursery : Building
 				break;
 		}
         int randomInt = Random.Range(0, 100);
-        if(randomInt <= 25 && (int)seal.RescueProgress < 80 && seal.IsHappyAndHealthy) { CreateTask(TaskType.Transfer, seal); }
+        if(randomInt <= 25 && (int)seal.RescueProgress < 80 && seal.IsHappyAndHealthy && SceneReferences.FirstPool.HasSpaceForSeal()) { CreateTask(TaskType.Transfer, seal); }
     }
 
     void CreateTask(TaskType taskType, Seal seal = null)
@@ -126,6 +126,7 @@ public class Nursery : Building
     {
         return ResidentSeals.Count <= SealCapacity;
     }
+
     public void Init()
     {
         EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
@@ -150,7 +151,7 @@ public class Nursery : Building
                 }
                 break;
             case TimePassed.Day:
-                CreateTask(TaskType.Clean);
+                if (!ResidentSeals.IsEmpty()) { CreateTask(TaskType.Clean); }
                 break;
             case TimePassed.Week:
                 CreateTask(TaskType.Maintenance);
