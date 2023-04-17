@@ -55,6 +55,8 @@ public class GameEventController : Singleton<GameEventController>
             case TimePassed.Day:
                 break;
             case TimePassed.Week:
+                SceneReferences.WeeklyChoices.SetActive(true);
+                SceneReferences.GameDateTime.SetTimeScaleMultiplier(0);
                 break;
             case TimePassed.Month:
                 break;
@@ -97,6 +99,13 @@ public class GameEventController : Singleton<GameEventController>
             KeyValuePair<Month, int> date = GameDateTime.Instance.CurrentMonth;
             EventMessenger.Instance.SendSealSpottedMessage(date.Key, date.Value, firstSeal);
             Game.Instance.Seals.Add(firstSeal);
+
+            Employee firstEmployee = new Employee(
+                SceneReferences.EmployeeNames.GetRandomElement(),
+                "VisitorCentre",
+                200,
+                WorkerSkills.Management);
+            SceneReferences.Game.GenerateEmployee(firstEmployee);
         }
     }
     #endregion

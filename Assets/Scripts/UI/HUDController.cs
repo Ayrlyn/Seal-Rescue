@@ -6,22 +6,26 @@ using UnityEngine;
 public class HUDController : Singleton<HUDController>
 {
     #region serializable variables
+    [SerializeField] GameObject _costsLayoutGroup;
     [SerializeField] TMP_Text _gameDateTimeText;
     [Header("Resources")]
     [SerializeField] TMP_Text _foodText;
     [SerializeField] TMP_Text _materialsText;
     [SerializeField] TMP_Text _medicineText;
     [SerializeField] TMP_Text _moneyText;
+    [SerializeField] TMP_Text _upkeepText;
     #endregion
 
     #region local variables
     GameDateTime _gameDateTime;
     Resources _resources;
+    SceneReferences _sceneReferences;
     #endregion
 
     #region getters and setters
     GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
+    public SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     #endregion
 
     #region unity methods
@@ -51,6 +55,38 @@ public class HUDController : Singleton<HUDController>
     #endregion
 
     #region public methods
+    public void OnClickMonthlyCosts()
+    {
+        _costsLayoutGroup.SetActive(!_costsLayoutGroup.activeSelf);
 
+        if (!_costsLayoutGroup.activeSelf) { return; }
+
+        string costs = "";
+        foreach (UpkeepData upkeepData in SceneReferences.UpkeepController.AllUpkeeps)
+        {
+            switch (upkeepData.ResourceType)
+            {
+                case ResourceTypes.Food:
+                    costs += $"{upkeepData.Quantity} Fish each {upkeepData.Frequency}\n";
+                    break;
+                case ResourceTypes.Materials:
+                    costs += $"{upkeepData.Quantity} General Materials each {upkeepData.Frequency}\n";
+                    break;
+                case ResourceTypes.Medicine:
+                    costs += $"{upkeepData.Quantity} Medicines each {upkeepData.Frequency}\n";
+                    break;
+                case ResourceTypes.Money:
+                    costs += $"${upkeepData.Quantity} each {upkeepData.Frequency}\n";
+                    break;
+            }
+        }
+        int totalSalaries = 0;
+        foreach (Employee employee in SceneReferences.Game.Employees)
+        {
+            totalSalaries += employee.MonhtlySalary;
+        }
+        costs += $"Monthly salaries: ${totalSalaries}";
+        _upkeepText.text = costs;
+    }
     #endregion
 }

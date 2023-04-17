@@ -27,6 +27,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
     void Update()
     {
         _alert.SetActive(!_gameEventInfos.IsEmpty() && !_gameEventButtonParentTransform.gameObject.activeSelf);
+        _gameEventButtonParentTransform.gameObject.SetActive(!_gameEventInfos.IsEmpty());
     }
     #endregion
 

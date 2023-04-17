@@ -16,6 +16,7 @@ public enum Day
 public enum GameEventType
 {
     DEFAULT = 0,
+    SealRelease = 90,
     SealSpotted = 100
 }
 

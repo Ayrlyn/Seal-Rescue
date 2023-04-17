@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UpkeepController : Singleton<UpkeepController>, ISave<UpkeepSave>
@@ -16,6 +17,28 @@ public class UpkeepController : Singleton<UpkeepController>, ISave<UpkeepSave>
     HashSet<UpkeepData> _yearlyUpkeeps = new HashSet<UpkeepData>();
 
     Resources _resources;
+    #endregion
+
+    #region getters and setters
+    public List<UpkeepData> AllUpkeeps 
+    {
+        get
+        {
+            List<UpkeepData> upkeepDatas = new List<UpkeepData>();
+            upkeepDatas.AddRange(HourlyUpkeeps.ToList());
+            upkeepDatas.AddRange(DailyUpkeeps.ToList());
+            upkeepDatas.AddRange(WeeklyUpkeeps.ToList());
+            upkeepDatas.AddRange(MonthlyUpkeeps.ToList());
+            upkeepDatas.AddRange(YearlyUpkeeps.ToList());
+
+            return upkeepDatas;
+        }
+    }
+    public HashSet<UpkeepData> HourlyUpkeeps { get { return _hourlyUpkeeps; } }
+    public HashSet<UpkeepData> DailyUpkeeps { get { return _dailyUpkeeps; } }
+    public HashSet<UpkeepData> WeeklyUpkeeps { get { return _weeklyUpkeeps; } }
+    public HashSet<UpkeepData> MonthlyUpkeeps { get { return _monthlyUpkeeps; } }
+    public HashSet<UpkeepData> YearlyUpkeeps { get { return _yearlyUpkeeps; } }
     #endregion
 
     #region unity methods

@@ -10,11 +10,15 @@ public class SceneReferences : Singleton<SceneReferences>
     [SerializeField] Transform _eventsButtonParent;
     [SerializeField] GameEventInfoDisplay _gameEventInfoDisplay;
     [SerializeField] SealInfoPanel _sealInfoPanel;
+    [SerializeField] GameObject _weeklyChoices;
+    [SerializeField] GameObject _tutorial;
     [Header("Buildings")]
+    [SerializeField] FirstPool _firstPool;
     [SerializeField] Nursery _nursery;
     [SerializeField] SealHospital _sealHospital;
     [SerializeField] VisitorCentre _visitorCentre;
     [Header("Data")]
+    [SerializeField] List<string> _employeeNames;
     [SerializeField] List<string> _sealNames;
     [SerializeField]List<SealSpeciesData> _sealSpecies;
     #endregion
@@ -23,11 +27,14 @@ public class SceneReferences : Singleton<SceneReferences>
     Game _game;
     GameDateTime _gameDateTime;
     Resources _resources;
+    UpkeepController _upkeepController;
     #endregion
 
     #region getters and setters
     public Canvas Canvas { get { return _canvas; } }
+    public List<string> EmployeeNames { get { return _employeeNames; } }
     public Transform EventsButtonParent { get { return _eventsButtonParent; } }
+    public FirstPool FirstPool { get { return _firstPool; } }
     public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
     public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     public GameEventInfoDisplay GameEventInfoDisplay { get { return _gameEventInfoDisplay; } }
@@ -37,7 +44,10 @@ public class SceneReferences : Singleton<SceneReferences>
     public SealInfoPanel SealInfoPanel { get { return _sealInfoPanel; } }
     public List<string> SealNames { get { return _sealNames; } }
     public List<SealSpeciesData> SealSpecies { get { return _sealSpecies; } }
+    public GameObject Tutorial { get { return _tutorial; } }
+    public UpkeepController UpkeepController { get { if (_upkeepController == null) { _upkeepController = UpkeepController.Instance; } return _upkeepController; } }
     public VisitorCentre VisitorCentre { get { return _visitorCentre; } }
+    public GameObject WeeklyChoices { get { return _weeklyChoices; } }
     #endregion
 
 
