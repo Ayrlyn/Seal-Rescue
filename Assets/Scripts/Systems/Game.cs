@@ -26,7 +26,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     SealHospital _sealHospital;
     HashSet<Seal> _seals = new HashSet<Seal>();
     Dictionary<Seal, SealIconPrefab> _sealsAndPrefabs = new Dictionary<Seal, SealIconPrefab>();
-    int _sealSpottedChance = 1;
+    int _sealSpottedChance = 5;
     UpkeepController _upkeepController;
     #endregion
 
@@ -61,6 +61,11 @@ public class Game : Singleton<Game>, ISave<GameSave>
     void OnApplicationQuit()
     {
         SaveManager.Save();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
     }
     #endregion
 
