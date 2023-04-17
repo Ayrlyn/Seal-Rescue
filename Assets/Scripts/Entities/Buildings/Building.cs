@@ -7,6 +7,7 @@ public class Building : MonoBehaviour
 	#region public variables
 	public Transform _employeeParent;
 	public List<Employee> _employees = new List<Employee>();
+	public Transform _sealParent;
 	public string _prefabName;
 	public TaskUI _taskUI;
 	public List<Task> _tasks = new List<Task>();
@@ -87,6 +88,13 @@ public class Building : MonoBehaviour
 			if (task.Seal == seal && task.TaskType == taskType) { return true; }
 		}
 		return false;
+	}
+
+	public void ReceiveSeal(SealIconPrefab sealIconPrefab)
+	{
+		sealIconPrefab.transform.SetParent(_sealParent);
+		sealIconPrefab.transform.localPosition = Vector3.zero;
+		sealIconPrefab.transform.localScale = Vector3.one;
 	}
 
 	public void RemoveEmployee(Employee employee)
