@@ -7,6 +7,7 @@ public class Task
     #region local variables
     float _minutesRemaining;
     int _minutesRequired;
+    Resources _resources;
     List<KeyValuePair<ResourceTypes, int>> _resourcesRequired;
     Seal _seal;
     TaskType _taskType;
@@ -15,6 +16,7 @@ public class Task
     #region getters and setters
     public float MinutesRemaining { get { return _minutesRemaining; } set { _minutesRemaining = value; } }
     public int MinutesRequired { get { return _minutesRequired; } }
+    public Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
     public List<KeyValuePair<ResourceTypes, int>> ResourcesRequired { get { return _resourcesRequired; } }
     public Seal Seal { get { return _seal; } }
     public TaskType TaskType { get { return _taskType; } }
@@ -69,7 +71,7 @@ public class Task
     {
         foreach (KeyValuePair<ResourceTypes, int> cost in ResourcesRequired)
         {
-            Resources.Instance.SpendResource(cost.Key, cost.Value);
+            Resources.SpendResource(cost.Key, cost.Value);
         }
         switch (_taskType)
         {
@@ -81,6 +83,8 @@ public class Task
             case TaskType.Maintenance:
                 break;
             case TaskType.Tourism:
+                int spending = Random.Range(30, 151);
+                Resources.GainMoney(spending);
                 break;
             case TaskType.TreatIllness:
                 _seal.TreatIllness();
