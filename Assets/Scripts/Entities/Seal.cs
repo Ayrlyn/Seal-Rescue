@@ -141,10 +141,16 @@ public class Seal : ISave<SealSave>
         _hunger = Mathf.Max(0, _hunger);
         if (_hunger <= 75) { _mood = SealMood.Hungry; }
 
-        int randomHealth = Random.Range(0, 4);
+        int randomHealth = Random.Range(0, 5);
+        if((int)RescueProgress >= 50) { randomHealth /= 2; }
         _healthValue -= randomHealth;
         _healthValue = Mathf.Max(0, _healthValue);
         if (_healthValue <= 50 && _health != SealHealth.Injured) { _health = SealHealth.Sick; }
+    }
+
+    public void IncreaseProgress()
+    {
+        _rescueProgress = (SealRescueProgress)((int)_rescueProgress + 20);
     }
 
     public void RescueMe()
