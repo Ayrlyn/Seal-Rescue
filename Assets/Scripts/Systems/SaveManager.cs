@@ -62,6 +62,15 @@ public class SaveManager : SingletonDontDestroy<SaveManager>
         return $"{JSON_PATH}/{name}{JSON_EXT}";
     }
 
+    public void Delete()
+    {
+#if UNITY_EDITOR
+#else
+        string[] filePaths = Directory.GetFiles(Application.PersistentDataPath);
+        foreach (string filePath in filePaths) { File.Delete(filePath); } 
+#endif
+    }
+
     public void Save()
     {
         try
