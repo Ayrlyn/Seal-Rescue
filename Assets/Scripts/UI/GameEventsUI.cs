@@ -27,7 +27,23 @@ public class GameEventsUI : Singleton<GameEventsUI>
     void Update()
     {
         _alert.SetActive(!_gameEventInfos.IsEmpty() && !_gameEventButtonParentTransform.gameObject.activeSelf);
-        _gameEventButtonParentTransform.gameObject.SetActive(!_gameEventInfos.IsEmpty());
+    }
+
+    void OnDestroy()
+    {
+        try { EventMessenger.Instance.OnSealSpotted -= SealSpotted; }
+        catch { }
+    }
+    #endregion
+
+    #region local methods
+    void SealSpotted(Month month, int day, Seal seal)
+    {
+        GameEventInfo gameEventInfo = new GameEventInfo(
+            $"A {SceneReferences.GetDisplayName(seal.SealSpecies)} has been found and is in need of rescue.",
+            "Seal Rescue",
+            GameEventType.SealSpotted, seal);
+        _gameEventInfos.Add(gameEventInfo);
     }
     #endregion
 
@@ -58,6 +74,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
     }
     public void Init()
     {
+        EventMessenger.Instance.OnSealSpotted += SealSpotted;
         foreach (Seal seal in Game.Seals)
         {
             if(seal.RescueProgress == SealRescueProgress.Rescue)

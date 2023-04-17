@@ -17,7 +17,7 @@ public class GameEventController : Singleton<GameEventController>
     #region unity methods
     void OnDestroy()
     {
-        try { EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed; }
+        try { EventMessenger.Instance.OnTimeAndDateChange -= OnTimePassed; }
         catch { }        
     }
     #endregion
@@ -40,7 +40,7 @@ public class GameEventController : Singleton<GameEventController>
         Seal newSeal = new Seal(0, health, healthValue, hunger, mood, name, rescueProgress, sealSpecies, weight);
         KeyValuePair<Month, int> date = GameDateTime.Instance.CurrentMonth;
         EventMessenger.Instance.SendSealSpottedMessage(date.Key, date.Value, newSeal);
-        Game.Instance.Seals.Add(newSeal);
+        SceneReferences.Game.Seals.Add(newSeal);
     }
 
     void OnTimePassed(TimePassed timePassed)
@@ -98,7 +98,7 @@ public class GameEventController : Singleton<GameEventController>
             Seal firstSeal = new Seal(0, SealHealth.Injured, 50, 50, SealMood.Lethargic, "TutoriSeal", SealRescueProgress.Rescue, SealSpecies.CommonSeal, 12.2f);
             KeyValuePair<Month, int> date = GameDateTime.Instance.CurrentMonth;
             EventMessenger.Instance.SendSealSpottedMessage(date.Key, date.Value, firstSeal);
-            Game.Instance.Seals.Add(firstSeal);
+            SceneReferences.Game.Seals.Add(firstSeal);
 
             Employee firstEmployee = new Employee(
                 SceneReferences.EmployeeNames.GetRandomElement(),

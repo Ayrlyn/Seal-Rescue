@@ -50,12 +50,12 @@ public class Game : Singleton<Game>, ISave<GameSave>
     {
         SaveManager.Load();
         GameEventController.Init();
+        GameEventsUI.Init();
         SceneReferences.Nursery.Init();
         SceneReferences.FirstPool.Init();
         SceneReferences.SealHospital.Init();
         SceneReferences.VisitorCentre.Init();
         UpkeepController.Init();
-        GameEventsUI.Init();
     }
 
     void OnApplicationQuit()
@@ -64,9 +64,9 @@ public class Game : Singleton<Game>, ISave<GameSave>
     }
     #endregion
 
-    #region local methods
+    #region public methods
 
-    void GenerateSeal(Seal seal)
+    public void GenerateSeal(Seal seal)
     {
         Seals.Add(seal);
         SealIconPrefab iconPrefab = Instantiate(_sealIconPrefab);
@@ -77,6 +77,9 @@ public class Game : Singleton<Game>, ISave<GameSave>
 
         switch (seal.RescueProgress)
         {
+            case SealRescueProgress.Rescue:
+                iconPrefab.gameObject.SetActive(false);
+                break;
             case SealRescueProgress.Arrival:
                 SceneReferences.SealHospital.ReceiveSeal(iconPrefab);
                 break;
@@ -120,9 +123,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
         iconPrefab.transform.localPosition = Vector3.zero;
         button.onClick.AddListener(() => SceneReferences.SealInfoPanel.ShowSeal(seal));
     }
-    #endregion
 
-    #region public methods
     public void GenerateEmployee(Employee employee)
     {
         Employees.Add(employee);
@@ -171,6 +172,11 @@ public class Game : Singleton<Game>, ISave<GameSave>
         Resources.GainMaterials(randomMaterials);
         Resources.GainMedicine(randomMedicine);
         Resources.GainMoney(randomMoney);
+    }
+
+    public void ShowTutorialMessage(string text)
+    {
+        GameDateTime.SetTimeScaleMultiplier(0);
     }
 
     public void RaiseFunds()

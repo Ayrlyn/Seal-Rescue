@@ -94,6 +94,7 @@ public class Building : MonoBehaviour
 
 	public void ReceiveSeal(SealIconPrefab sealIconPrefab)
 	{
+		sealIconPrefab.gameObject.SetActive(true);
 		sealIconPrefab.transform.SetParent(_sealParent);
 		sealIconPrefab.transform.localPosition = Vector3.zero;
 		sealIconPrefab.transform.localScale = Vector3.one;
