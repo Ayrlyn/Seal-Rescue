@@ -66,8 +66,8 @@ public class SaveManager : SingletonDontDestroy<SaveManager>
     {
 #if UNITY_EDITOR
 #else
-        string[] filePaths = Directory.GetFiles(Application.PersistentDataPath);
-        foreach (string filePath in filePaths) { File.Delete(filePath); } 
+        string[] filePaths = Directory.GetFiles(Application.persistentDataPath);
+        foreach (string filePath in filePaths) { File.Delete(filePath); }
 #endif
     }
 
