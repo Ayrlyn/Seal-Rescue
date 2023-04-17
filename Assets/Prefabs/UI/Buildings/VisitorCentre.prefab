@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _employeeParent: {fileID: 997704950911911008}
+  _sealParent: {fileID: 992272819244846580}
+  _prefabName: 
   _taskUI: {fileID: 2234274591025983051}
 --- !u!1 &6364733352564781206
 GameObject:
