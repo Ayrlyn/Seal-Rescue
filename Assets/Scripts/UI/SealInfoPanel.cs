@@ -45,7 +45,7 @@ public class SealInfoPanel : MonoBehaviour
 		_sealCurrentProgressText.text = $"Progress: {seal.RescueProgressString}";
 		_sealHealthText.text = $"Health: {seal.Health}";
 		_sealNamePlaceHolder.text = $"{seal.Name}";
-		_sealPortrait.sprite = seal.IconPup;
+		_sealPortrait.sprite = seal.IconAdult;
 		_sealRescuedDateText.text = $"Rescued: {seal.RescueDate.Key} {seal.RescueDate.Value}";
 		_sealSpeciesText.text = $"Species: {SceneReferences.Instance.GetDisplayName(seal.SealSpecies)}";
 		_sealWeightText.text = $"Weight: {seal.Weight:F1} kg";

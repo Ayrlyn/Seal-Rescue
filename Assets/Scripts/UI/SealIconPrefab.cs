@@ -46,7 +46,7 @@ public class SealIconPrefab : MonoBehaviour
         EventMessenger.Instance.OnTimeAndDateChange += OnTimePassed;
 
         _seal = seal;
-		_icon.sprite = seal.IconPup;
+		_icon.sprite = seal.IconAdult;
     }
 	#endregion
 

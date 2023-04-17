@@ -16,10 +16,12 @@ public class TaskUI : MonoBehaviour
     #endregion
 
     #region local variables
+    SceneReferences _sceneReferences;
     Task _task;
     #endregion
 
     #region getters and setters
+    public SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     #endregion
 
     #region unity methods
@@ -42,7 +44,22 @@ public class TaskUI : MonoBehaviour
 		this.gameObject.SetActive(true);
 		_progressBar.fillAmount = 1f;
         _task = task;
-        if(_task.Seal != null) { _taskIcon.sprite = _task.Seal.IconPup; }
+        if(_task.Seal != null) { _taskIcon.sprite = _task.Seal.IconAdult; }
+        else
+        {
+            switch (task.TaskType)
+            {
+                case TaskType.Clean:
+                    _taskIcon.sprite = SceneReferences.MaterialsSprite;
+                    break;
+                case TaskType.Maintenance:
+                    _taskIcon.sprite = SceneReferences.MaterialsSprite;
+                    break;
+                case TaskType.Tourism:
+                    _taskIcon.sprite = SceneReferences.MoneySprite;
+                    break;
+            }
+        }
     }
 
     public void OnClick()
