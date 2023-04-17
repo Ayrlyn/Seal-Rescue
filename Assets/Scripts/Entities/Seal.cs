@@ -56,6 +56,7 @@ public class Seal : ISave<SealSave>
     public int Hunger { get { return _hunger; } }
     public Sprite IconAdult { get { return SceneReferences.GetIcons(SealSpecies, false)[_iconAdult]; } }
     public Sprite IconPup { get { return SceneReferences.GetIcons(SealSpecies, true)[_iconPup]; } }
+    public bool IsHappyAndHealthy { get { return Health == SealHealth.Healthy && Mood != SealMood.Hungry; } }
     public SealMood Mood { get { return _mood; } }
     public string Name { get { return _name; } set { _name = value; } }
     public KeyValuePair<Month, int> RescueDate { get { return _rescueDate; } }
