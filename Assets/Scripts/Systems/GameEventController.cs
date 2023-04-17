@@ -66,7 +66,7 @@ public class GameEventController : Singleton<GameEventController>
     void SealCheck()
     {
         int randomInt = Random.Range(0, 100);
-        if(randomInt <= SceneReferences.Game.SealSpottedChance) { return; }
+        if(randomInt > SceneReferences.Game.SealSpottedChance) { return; }
 
         foreach (SealSpeciesData sealSpecies in SceneReferences.SealSpecies)
         {
