@@ -38,6 +38,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     public SaveManager SaveManager { get { if (_saveManager == null) { _saveManager = SaveManager.Instance; } return _saveManager; } }
     public SceneReferences SceneReferences { get { if(_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     public HashSet<Seal> Seals { get { return _seals; } set { _seals = value; } }
+    public Dictionary<Seal, SealIconPrefab> SealsAndPrefabs { get { return _sealsAndPrefabs; } }
     public int SealSpottedChance { get { return _sealSpottedChance; } }
     public UpkeepController UpkeepController { get { if (_upkeepController == null) { _upkeepController = UpkeepController.Instance; } return _upkeepController; } }
     #endregion
@@ -47,6 +48,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     {
         SaveManager.Load();
         GameEventController.Init();
+        SceneReferences.Nursery.Init();
         SceneReferences.SealHospital.Init();
         SceneReferences.VisitorCentre.Init();
         UpkeepController.Init();
@@ -70,6 +72,9 @@ public class Game : Singleton<Game>, ISave<GameSave>
 
         switch (employee.Location)
         {
+            case "Nursery":
+                SceneReferences.Nursery.ReceiveEmployee(iconPrefab);
+                break;
             case "SealHospital":
                 SceneReferences.SealHospital.ReceiveEmployee(iconPrefab);
                 break;
@@ -95,20 +100,25 @@ public class Game : Singleton<Game>, ISave<GameSave>
         switch (seal.RescueProgress)
         {
             case SealRescueProgress.Arrival:
-                iconPrefab.transform.SetParent(SceneReferences.SealHospitalParent, false);
+                SceneReferences.SealHospital.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.Quarantine:
-                iconPrefab.transform.SetParent(SceneReferences.SealHospitalParent, false);
+                SceneReferences.SealHospital.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.TubeFeeding:
+                SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.ForceFeeding:
+                SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.HandFeeding:
+                SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.FishSchool:
+                SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.FreeFeeding:
+                SceneReferences.Nursery.ReceiveSeal(iconPrefab);
                 break;
             case SealRescueProgress.NurseryPool:
                 break;
