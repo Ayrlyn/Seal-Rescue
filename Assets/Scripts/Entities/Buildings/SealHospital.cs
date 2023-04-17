@@ -46,7 +46,7 @@ public class SealHospital : Building
                 CreateTask(TaskType.Feed, seal);
                 break;
         }
-        if(seal.Health == SealHealth.Healthy && seal.Mood != SealMood.Hungry)
+        if(seal.IsHappyAndHealthy)
         {
             CreateTask(TaskType.Transfer, seal);
         }
