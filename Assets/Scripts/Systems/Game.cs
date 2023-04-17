@@ -24,6 +24,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     SealHospital _sealHospital;
     HashSet<Seal> _seals = new HashSet<Seal>();
     Dictionary<Seal, SealIconPrefab> _sealsAndPrefabs = new Dictionary<Seal, SealIconPrefab>();
+    int _sealSpottedChance = 1;
     UpkeepController _upkeepController;
     #endregion
 
@@ -37,6 +38,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
     public SaveManager SaveManager { get { if (_saveManager == null) { _saveManager = SaveManager.Instance; } return _saveManager; } }
     public SceneReferences SceneReferences { get { if(_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     public HashSet<Seal> Seals { get { return _seals; } set { _seals = value; } }
+    public int SealSpottedChance { get { return _sealSpottedChance; } }
     public UpkeepController UpkeepController { get { if (_upkeepController == null) { _upkeepController = UpkeepController.Instance; } return _upkeepController; } }
     #endregion
 

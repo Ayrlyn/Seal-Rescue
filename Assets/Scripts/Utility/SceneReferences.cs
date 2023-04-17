@@ -14,18 +14,24 @@ public class SceneReferences : Singleton<SceneReferences>
     [SerializeField] SealHospital _sealHospital;
     [SerializeField] VisitorCentre _visitorCentre;
     [Header("Data")]
+    [SerializeField] List<string> _sealNames;
     [SerializeField]List<SealSpeciesData> _sealSpecies;
     #endregion
 
     #region local variables
+    Game _game;
+    GameDateTime _gameDateTime;
     #endregion
 
     #region getters and setters
     public Canvas Canvas { get { return _canvas; } }
     public Transform EventsButtonParent { get { return _eventsButtonParent; } }
+    public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
+    public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     public SealHospital SealHospital { get { return _sealHospital; } }
     public Transform SealHospitalParent { get { return _sealHospitalParent; } }
     public SealInfoPanel SealInfoPanel { get { return _sealInfoPanel; } }
+    public List<string> SealNames { get { return _sealNames; } }
     public List<SealSpeciesData> SealSpecies { get { return _sealSpecies; } }
     public VisitorCentre VisitorCentre { get { return _visitorCentre; } }
     #endregion
@@ -54,6 +60,16 @@ public class SceneReferences : Singleton<SceneReferences>
         }
         Debug.LogError($"Invalid seal species: {species.ToString()}");
         return new List<Sprite>();
+    }
+
+    public SealSpeciesData GetSpeciesData(SealSpecies species)
+    {
+        foreach (SealSpeciesData speciesData in SealSpecies)
+        {
+            if(speciesData.SealSpecies == species) { return speciesData; }
+        }
+        Debug.LogError($"Invalid seal species: {species.ToString()}");
+        return null;
     }
     #endregion
 }

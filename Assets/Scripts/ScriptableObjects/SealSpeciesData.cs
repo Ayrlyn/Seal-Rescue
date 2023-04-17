@@ -18,6 +18,11 @@ public class SealSpeciesData : ScriptableObject
 
     #region getters and setters
     public List<Sprite> AdultIcons { get { return adultIcons; } }
+    public float BirthWeightMax { get { return birghtWeightRange.y; } }
+    public float BirthWeightMin { get { return birghtWeightRange.x; } }
+    public List<Month> EarlyPuppingMonths { get { return earlyPuppingMonths; } }
+    public List<Month> LatePuppingMonths { get { return latePuppingMonths; } }
+    public List<Month> PuppingMonths { get { return puppingMonths; } }
     public List<Sprite> PupIcons { get { return pupIcons; } }
     public string SpeciesName { get { return speciesName; } }
     public SealSpecies SealSpecies { get { return sealSpecies; } }
