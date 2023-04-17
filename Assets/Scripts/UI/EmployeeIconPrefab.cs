@@ -14,6 +14,7 @@ public class EmployeeIconPrefab : MonoBehaviour, IPointerDownHandler, IDragHandl
     Canvas _canvas;
     Transform _currentParent;
     Employee _employee;
+    Vector3 _originalPosition;
     SceneReferences _sceneReferences;
     #endregion
 
@@ -27,7 +28,27 @@ public class EmployeeIconPrefab : MonoBehaviour, IPointerDownHandler, IDragHandl
     #endregion
 
     #region local methods
-    Vector3 _originalPosition;
+    void OnTimePassed(TimePassed time)
+    {
+        switch (time)
+        {
+            case TimePassed.Minute:
+                break;
+            case TimePassed.Hour:
+                break;
+            case TimePassed.Day:
+                break;
+            case TimePassed.Week:
+                break;
+            case TimePassed.Month:
+                if (!SceneReferences.Resources.SpendMoney(Employee.MonhtlySalary)) { }
+                break;
+            case TimePassed.Year:
+                break;
+            default:
+                break;
+        }
+    }
     #endregion
 
     #region public methods
