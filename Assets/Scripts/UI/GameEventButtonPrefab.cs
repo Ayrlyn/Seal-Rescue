@@ -12,11 +12,11 @@ public class GameEventButtonPrefab : MonoBehaviour
 
 	#region local variables
 	GameEventInfo _eventInfo;
-	GameEventInfoDisplay _gameEventInfoDisplay;
+	SceneReferences _sceneReferences;
 	#endregion
 
 	#region getters and setters
-	GameEventInfoDisplay GameEventInfoDisplay { get { if (_gameEventInfoDisplay == null) { _gameEventInfoDisplay = GameEventInfoDisplay.Instance; } return _gameEventInfoDisplay; } }
+	SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
 	#endregion
 
 	#region unity methods
@@ -25,7 +25,7 @@ public class GameEventButtonPrefab : MonoBehaviour
 	#region local methods
 	void OnClick()
     {
-		GameEventInfoDisplay.ShowEventInfo(_eventInfo);
+		SceneReferences.GameEventInfoDisplay.ShowEventInfo(_eventInfo);
     }
 	#endregion
 
