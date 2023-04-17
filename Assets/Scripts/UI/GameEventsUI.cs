@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameEventsUI : Singleton<GameEventsUI>
 {
     #region serializable variables
+    [SerializeField] GameObject _alert;
     [SerializeField] GameEventButtonPrefab _gameEventButtonPrefab;
     [SerializeField] Transform _gameEventButtonParentTransform;
     #endregion
@@ -20,6 +21,13 @@ public class GameEventsUI : Singleton<GameEventsUI>
     #region getters and setters
     Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
     SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; }return _sceneReferences; } }
+    #endregion
+
+    #region unity methods
+    void Update()
+    {
+        _alert.SetActive(!_gameEventInfos.IsEmpty() && !_gameEventButtonParentTransform.gameObject.activeSelf);
+    }
     #endregion
 
     #region public methods
