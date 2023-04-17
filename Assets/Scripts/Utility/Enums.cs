@@ -95,6 +95,7 @@ public enum TaskType
     Feed = 20,
     Maintenance = 30,
     Tourism = 40,
+    Transfer = 45,
     TreatIllness = 50,
     TreatInjury = 60
 }
