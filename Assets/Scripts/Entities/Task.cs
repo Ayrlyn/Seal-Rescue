@@ -9,6 +9,7 @@ public class Task
     int _minutesRequired;
     Resources _resources;
     List<KeyValuePair<ResourceTypes, int>> _resourcesRequired;
+    SceneReferences _sceneReferences;
     Seal _seal;
     TaskType _taskType;
     #endregion
@@ -17,6 +18,7 @@ public class Task
     public float MinutesRemaining { get { return _minutesRemaining; } set { _minutesRemaining = value; } }
     public int MinutesRequired { get { return _minutesRequired; } }
     public Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
+    public SceneReferences SceneReferences { get { if (_sceneReferences == null) { _sceneReferences = SceneReferences.Instance; } return _sceneReferences; } }
     public List<KeyValuePair<ResourceTypes, int>> ResourcesRequired { get { return _resourcesRequired; } }
     public Seal Seal { get { return _seal; } }
     public TaskType TaskType { get { return _taskType; } }
@@ -35,6 +37,52 @@ public class Task
         _resourcesRequired = resourcesRequired;
         _taskType = taskType;
         _seal = seal;
+    }
+    #endregion
+
+    #region local methods
+    void TransferSeal()
+    {
+        Seal.IncreaseProgress();
+        switch (Seal.RescueProgress)
+        {
+            case SealRescueProgress.Rescue:
+                SceneReferences.SealHospital.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.Arrival:
+                SceneReferences.SealHospital.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.Quarantine:
+                SceneReferences.SealHospital.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.TubeFeeding:
+                SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.ForceFeeding:
+                SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.HandFeeding:
+                SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.FishSchool:
+                SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.FreeFeeding:
+                SceneReferences.Nursery.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[Seal]);
+                break;
+            case SealRescueProgress.NurseryPool:
+                break;
+            case SealRescueProgress.RockPool:
+                break;
+            case SealRescueProgress.PhysioPool:
+                break;
+            case SealRescueProgress.PreReleasePool:
+                break;
+            case SealRescueProgress.Release:
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -85,6 +133,9 @@ public class Task
             case TaskType.Tourism:
                 int spending = Random.Range(30, 151);
                 Resources.GainMoney(spending);
+                break;
+            case TaskType.Transfer:
+                TransferSeal();
                 break;
             case TaskType.TreatIllness:
                 _seal.TreatIllness();
