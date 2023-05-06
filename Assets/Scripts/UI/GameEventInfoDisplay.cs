@@ -23,10 +23,6 @@ public class GameEventInfoDisplay : Singleton<GameEventInfoDisplay>
     #endregion
 
     #region unity methods
-    void Start()
-    {
-        this.gameObject.SetActive(false);
-    }
     #endregion
 
     #region local methods
