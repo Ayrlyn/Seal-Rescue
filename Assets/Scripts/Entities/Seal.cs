@@ -175,6 +175,7 @@ public class Seal : ISave<SealSave>
     {
         _rescueProgress = SealRescueProgress.Arrival;
         _rescueDate = GameDateTime.CurrentMonth;
+        SceneReferences.SealHospital.ReceiveSeal(SceneReferences.Game.SealsAndPrefabs[this]);
     }
 
     public void TreatIllness()

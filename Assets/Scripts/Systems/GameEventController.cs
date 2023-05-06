@@ -98,7 +98,7 @@ public class GameEventController : Singleton<GameEventController>
             Seal firstSeal = new Seal(0, SealHealth.Injured, 50, 50, SealMood.Lethargic, "TutoriSeal", SealRescueProgress.Rescue, SealSpecies.CommonSeal, 12.2f);
             KeyValuePair<Month, int> date = GameDateTime.Instance.CurrentMonth;
             EventMessenger.Instance.SendSealSpottedMessage(date.Key, date.Value, firstSeal);
-            SceneReferences.Game.Seals.Add(firstSeal);
+            SceneReferences.Game.GenerateSeal(firstSeal);
 
             Employee firstEmployee = new Employee(
                 SceneReferences.EmployeeNames.GetRandomElement(),
