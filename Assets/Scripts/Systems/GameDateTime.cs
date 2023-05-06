@@ -10,9 +10,9 @@ public class GameDateTime : Singleton<GameDateTime>, ISave<DateTimeSave>
 
     #region local variables
     Day _currentDay = Day.Monday;
-    int _currentHour = 0;
+    int _currentHour = 9;
     int _currentMinute = 0;
-    KeyValuePair<Month, int> _currentMonth = new KeyValuePair<Month, int>(Month.January, 1);
+    KeyValuePair<Month, int> _currentMonth = new KeyValuePair<Month, int>(Month.May, 1);
     float _minuteTimePassed = 0f;
     Dictionary<Month, int> _months = new Dictionary<Month, int>()
     {
