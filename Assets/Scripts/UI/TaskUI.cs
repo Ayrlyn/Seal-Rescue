@@ -64,7 +64,13 @@ public class TaskUI : MonoBehaviour
 
     public void OnClick()
     {
-        _infoPopup.SetActive(!_infoPopup.activeSelf);
+        if (_infoPopup.activeSelf)
+        {
+            if (_infoPopup.GetComponent<UIEffects>() != null) { _infoPopup.GetComponent<UIEffects>().Close(); }
+            else { _infoPopup.SetActive(false); }
+        }
+        else { { _infoPopup.SetActive(true); } }
+
         if (!_infoPopup.activeSelf) { return; }
 
         _popupTitle.text = _task.TaskTypeString;
