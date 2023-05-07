@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 8825202292818724520}
   - component: {fileID: 4027153447021872295}
   - component: {fileID: 6926203853416588913}
+  - component: {fileID: 7912097889392471881}
   m_Layer: 5
   m_Name: InfoPopup
   m_TagString: Untagged
@@ -451,6 +452,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7912097889392471881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430831873976699193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cb9a7b344744a448cf1861196746d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onOpenEffects:
+  - _uIEffect: 0
+    _easeType: 31
+    _duration: 0.5
+    _delay: 0
+  _onCloseEffects:
+  - _uIEffect: 1
+    _easeType: 32
+    _duration: 0.5
+    _delay: 0
 --- !u!1 &6172007650050006716
 GameObject:
   m_ObjectHideFlags: 0
