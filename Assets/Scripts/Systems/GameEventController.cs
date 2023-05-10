@@ -106,6 +106,7 @@ public class GameEventController : Singleton<GameEventController>
                 200,
                 WorkerSkills.Management);
             SceneReferences.Game.GenerateEmployee(firstEmployee);
+            SceneReferences.PopupNotificationScript.SetNotificationText($"An injured seal has been found!\nClick the events button.");
         }
     }
     #endregion
