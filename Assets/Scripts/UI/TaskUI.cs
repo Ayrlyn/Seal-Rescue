@@ -42,7 +42,10 @@ public class TaskUI : MonoBehaviour
     public void Init(Task task)
     {
 		this.gameObject.SetActive(true);
-		_progressBar.fillAmount = 1f;
+        Canvas.ForceUpdateCanvases();
+        _infoPopup.GetComponent<VerticalLayoutGroup>().enabled = false;
+        _infoPopup.GetComponent<VerticalLayoutGroup>().enabled = true;
+        _progressBar.fillAmount = 1f;
         _task = task;
         if(_task.Seal != null) { _taskIcon.sprite = _task.Seal.IconAdult; }
         else

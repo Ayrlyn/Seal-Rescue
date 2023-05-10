@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupNotificationScript : MonoBehaviour
 {
@@ -26,7 +27,10 @@ public class PopupNotificationScript : MonoBehaviour
     {
 		_notificationText.text = text;
 		this.gameObject.SetActive(true);
-    }
+		Canvas.ForceUpdateCanvases();
+		this.GetComponent<VerticalLayoutGroup>().enabled = false;
+		this.GetComponent<VerticalLayoutGroup>().enabled = true;
+	}
 	#endregion
 
 	#region coroutines
