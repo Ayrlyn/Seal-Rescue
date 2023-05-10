@@ -9,6 +9,7 @@ public class SceneReferences : Singleton<SceneReferences>
     [SerializeField] Canvas _canvas;
     [SerializeField] Transform _eventsButtonParent;
     [SerializeField] GameEventInfoDisplay _gameEventInfoDisplay;
+    [SerializeField] PopupNotificationScript _popupNotificationScript;
     [SerializeField] SealInfoPanel _sealInfoPanel;
     [SerializeField] GameObject _weeklyChoices;
     [SerializeField] GameObject _tutorial;
@@ -48,6 +49,7 @@ public class SceneReferences : Singleton<SceneReferences>
     public Sprite MedicineSprite { get { return _medicineSprite; } }
     public Sprite MoneySprite { get { return _moneySprite; } }
     public Nursery Nursery { get { return _nursery; } }
+    public PopupNotificationScript PopupNotificationScript { get { return _popupNotificationScript; } }
     public Resources Resources { get { if (_resources == null) { _resources = Resources.Instance; } return _resources; } }
     public SealHospital SealHospital { get { return _sealHospital; } }
     public SealInfoPanel SealInfoPanel { get { return _sealInfoPanel; } }
