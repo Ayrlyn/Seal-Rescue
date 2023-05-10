@@ -49,9 +49,9 @@ public enum ResourceTypes
 public enum SealHealth
 {
     DEFAULT = 0,
-    Healthy = 10,
-    Injured = 20,
-    Sick = 30
+    Healthy = 1,
+    Injured = 2,
+    Sick = 3
 }
 
 public enum SealMood
