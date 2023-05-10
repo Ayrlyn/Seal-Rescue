@@ -466,12 +466,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onOpenEffects:
   - _uIEffect: 0
-    _easeType: 31
+    _easeType: 28
     _duration: 0.5
     _delay: 0
   _onCloseEffects:
   - _uIEffect: 1
-    _easeType: 32
+    _easeType: 27
     _duration: 0.5
     _delay: 0
 --- !u!1 &6172007650050006716

@@ -74,6 +74,7 @@ public class Building : MonoBehaviour
                 else
                 {
 					CheckTasks();
+					if(CurrentTask == null) { _taskUI.ClosePopup(); }
                 }
 			}
         }

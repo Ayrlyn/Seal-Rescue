@@ -37,9 +37,33 @@ public class TaskUI : MonoBehaviour
     #endregion
 
     #region local methods
+    void UpdateTaskText()
+    {
+        _popupTitle.text = _task.TaskTypeString;
+
+        if (_task.ResourcesRequired.Count == 0)
+        {
+            _popupResources.gameObject.SetActive(false);
+            return;
+        }
+
+        string resourcesString = "Requirements:";
+        foreach (KeyValuePair<ResourceTypes, int> resourceRequired in _task.ResourcesRequired)
+        {
+            resourcesString += $"\n - {resourceRequired.Value} {resourceRequired.Key.ToString()}";
+        }
+        _popupResources.gameObject.SetActive(true);
+        _popupResources.text = resourcesString;
+    }
     #endregion
 
     #region public methods
+    public void ClosePopup()
+    {
+        if (_infoPopup.GetComponent<UIEffects>() != null) { _infoPopup.GetComponent<UIEffects>().Close(); }
+        else { _infoPopup.SetActive(false); }
+    }
+
     public void Init(Task task)
     {
 		this.gameObject.SetActive(true);
@@ -91,34 +115,20 @@ public class TaskUI : MonoBehaviour
                 Debug.LogError($"Invalid task type: {task.TaskType}");
                 break;
         }
+        UpdateTaskText();
     }
 
     public void OnClick()
     {
         if (_infoPopup.activeSelf)
         {
-            if (_infoPopup.GetComponent<UIEffects>() != null) { _infoPopup.GetComponent<UIEffects>().Close(); }
-            else { _infoPopup.SetActive(false); }
+            ClosePopup();
         }
         else { { _infoPopup.SetActive(true); } }
 
         if (!_infoPopup.activeSelf) { return; }
 
-        _popupTitle.text = _task.TaskTypeString;
-
-        if(_task.ResourcesRequired.Count == 0) 
-        {
-            _popupResources.gameObject.SetActive(false);
-            return; 
-        }
-
-        string resourcesString = "Requirements:";
-        foreach (KeyValuePair<ResourceTypes, int> resourceRequired in _task.ResourcesRequired)
-        {
-            resourcesString += $"\n - {resourceRequired.Value} {resourceRequired.Key.ToString()}";
-        }
-        _popupResources.gameObject.SetActive(true);
-        _popupResources.text = resourcesString;
+        UpdateTaskText();
     }
 	#endregion
 
