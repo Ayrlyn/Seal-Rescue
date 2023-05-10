@@ -58,12 +58,10 @@ public class Building : MonoBehaviour
 	void DoTask()
     {
 		if(CurrentTask == null || Employees.IsEmpty()) { return; }
-		if (Game.Resources.HasRescources(CurrentTask.ResourcesRequired))
+		if (Game.Resources.HasRescources(CurrentTask.ResourcesRequired) && CurrentTask.RequiredSpecialisation(_employees))
         {
 			CurrentTask.MinutesRemaining--;
-			if(_employees.Count > 1 && CurrentTask.BonusProgress(_employees)) { CurrentTask.MinutesRemaining -= 0.75f; }
-			else if (_employees.Count > 1 ) { CurrentTask.MinutesRemaining -= 0.4f; }
-			else if (CurrentTask.BonusProgress(_employees)) { CurrentTask.MinutesRemaining -= 0.5f; }
+			if (_employees.Count > 1 ) { CurrentTask.MinutesRemaining -= 0.4f; }
 
 			if (CurrentTask.MinutesRemaining <= 0) 
 			{

@@ -120,34 +120,6 @@ public class Task
     #endregion
 
     #region public methods
-    public bool BonusProgress(List<Employee> employees)
-    {
-        foreach (Employee employee in employees)
-        {
-            switch (_taskType)
-            {
-                case TaskType.Clean: 
-                    if (employee.Specialty == WorkerSkills.Handy) { return true; }
-                    break;
-                case TaskType.Maintenance:
-                    if (employee.Specialty == WorkerSkills.Handy) { return true; }
-                    break;
-                case TaskType.Tourism:
-                    if (employee.Specialty == WorkerSkills.Community) { return true; }
-                    break;
-                case TaskType.TreatIllness:
-                    if (employee.Specialty == WorkerSkills.Medicine) { return true; }
-                    break;
-                case TaskType.TreatInjury:
-                    if (employee.Specialty == WorkerSkills.Medicine) { return true; }
-                    break;
-                default:
-                    return false;
-            }
-        }
-        return false;
-    }
-
     public void CompleteTask()
     {
         foreach (KeyValuePair<ResourceTypes, int> cost in ResourcesRequired)
@@ -179,6 +151,31 @@ public class Task
             default:
                 break;
         }
+    }
+
+    public bool RequiredSpecialisation(List<Employee> employees)
+    {
+        foreach (Employee employee in employees)
+        {
+            switch (_taskType)
+            {
+                case TaskType.Maintenance:
+                    if (employee.Specialty == WorkerSkills.Handy) { return true; }
+                    break;
+                case TaskType.Tourism:
+                    if (employee.Specialty == WorkerSkills.Community) { return true; }
+                    break;
+                case TaskType.TreatIllness:
+                    if (employee.Specialty == WorkerSkills.Medicine) { return true; }
+                    break;
+                case TaskType.TreatInjury:
+                    if (employee.Specialty == WorkerSkills.Medicine) { return true; }
+                    break;
+                default:
+                    return true;
+            }
+        }
+        return false;
     }
     #endregion
 }

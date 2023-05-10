@@ -8,6 +8,7 @@ public class TaskUI : MonoBehaviour
 {
     #region serialiazable variables
     [SerializeField] GameObject _infoPopup;
+    [SerializeField] Image _outerRing;
     [SerializeField] TMP_Text _popupResources;
     [SerializeField] TMP_Text _popupTimeRemaining;
     [SerializeField] TMP_Text _popupTitle;
@@ -62,6 +63,33 @@ public class TaskUI : MonoBehaviour
                     _taskIcon.sprite = SceneReferences.MoneySprite;
                     break;
             }
+        }
+        switch (task.TaskType)
+        {
+            case TaskType.Clean:
+                _outerRing.color = Color.black;
+                break;
+            case TaskType.Feed:
+                _outerRing.color = Color.black;
+                break;
+            case TaskType.Maintenance:
+                _outerRing.color = Color.grey;
+                break;
+            case TaskType.Tourism:
+                _outerRing.color = Color.cyan;
+                break;
+            case TaskType.Transfer:
+                _outerRing.color = Color.black;
+                break;
+            case TaskType.TreatIllness:
+                _outerRing.color = Color.blue;
+                break;
+            case TaskType.TreatInjury:
+                _outerRing.color = Color.blue;
+                break;
+            default:
+                Debug.LogError($"Invalid task type: {task.TaskType}");
+                break;
         }
     }
 
