@@ -41,6 +41,25 @@ public class GameEventController : Singleton<GameEventController>
         KeyValuePair<Month, int> date = GameDateTime.Instance.CurrentMonth;
         EventMessenger.Instance.SendSealSpottedMessage(date.Key, date.Value, newSeal);
         SceneReferences.Game.Seals.Add(newSeal);
+
+        string notificationMessage = $"A";
+        switch (health)
+        {
+            case SealHealth.Healthy:
+                notificationMessage += "n orphaned ";
+                break;
+            case SealHealth.Injured:
+                notificationMessage += "n injured ";
+                break;
+            case SealHealth.Sick:
+                notificationMessage += " sick ";
+                break;
+            default:
+                Debug.LogError($"Invalid health value: {health}");
+                break;
+        }
+        notificationMessage += "seal has been found!";
+        SceneReferences.PopupNotificationScript.SetNotificationText(notificationMessage);
     }
 
     void OnTimePassed(TimePassed timePassed)
