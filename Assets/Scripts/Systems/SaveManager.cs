@@ -11,7 +11,7 @@ public class SaveManager : SingletonDontDestroy<SaveManager>
         try
         {
             var gameSave = LoadFile<GameSave>(Path("save/game"));
-            if (gameSave == null)
+            if (gameSave == null|| gameSave._sealSaves.IsEmpty())
             {
                 Debug.Log("SaveSystem::Load() - No game save found");
                 return false;

@@ -58,15 +58,19 @@ public class Game : Singleton<Game>, ISave<GameSave>
         UpkeepController.Init();
     }
 
+    bool save = true;
     void OnApplicationQuit()
     {
-        SaveManager.Save();
-    }
+        SaveManager.Save();    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); }
-        if (Input.GetKeyDown(KeyCode.Delete)) { SaveManager.Delete(); }
+        if (Input.GetKeyDown(KeyCode.Delete)) 
+        {
+            save = false;
+            SaveManager.Delete(); 
+        }
     }
     #endregion
 
@@ -216,6 +220,7 @@ public class Game : Singleton<Game>, ISave<GameSave>
 
     public GameSave Save()
     {
+        if (!save) { return new GameSave(); }
         DateTimeSave dateTimeSave = GameDateTime.Save();
         List<EmployeeSave> savedEmployees = new List<EmployeeSave>();
         foreach (Employee employee in Employees)

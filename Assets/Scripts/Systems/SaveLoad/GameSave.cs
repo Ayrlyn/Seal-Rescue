@@ -12,6 +12,8 @@ public class GameSave
     public List<SealSave> _sealSaves;
     public UpkeepSave _upkeepSave;
 
+    public GameSave() { }
+
     public GameSave(DateTimeSave dateTimeSave, List<EmployeeSave> employeeSaves, HashSet<string> oneOffGameEvents, ResourcesSave resourcesSave, List<SealSave> sealSaves, UpkeepSave upkeepSave)
     {
         _dateTimeSave = dateTimeSave;
