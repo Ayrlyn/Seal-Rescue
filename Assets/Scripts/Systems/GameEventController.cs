@@ -123,7 +123,8 @@ public class GameEventController : Singleton<GameEventController>
                 SceneReferences.EmployeeNames.GetRandomElement(),
                 "VisitorCentre",
                 200,
-                WorkerSkills.Management);
+                WorkerSkills.Management,
+                true);
             SceneReferences.Game.GenerateEmployee(firstEmployee);
             SceneReferences.PopupNotificationScript.SetNotificationText($"An injured seal has been found!\nClick the events button.");
         }

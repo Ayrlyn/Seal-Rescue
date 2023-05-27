@@ -55,24 +55,7 @@ public class EmployeeIconPrefab : MonoBehaviour, IPointerDownHandler, IDragHandl
     public void Init(Employee employee)
     {
         _employee = employee;
-        switch (employee.Specialty)
-        {
-            case WorkerSkills.Community:
-                _ringOuter.color = Color.cyan;
-                break;
-            case WorkerSkills.Medicine:
-                _ringOuter.color = Color.blue;
-                break;
-            case WorkerSkills.Management:
-                _ringOuter.color = Color.magenta;
-                break;
-            case WorkerSkills.Handy:
-                _ringOuter.color = Color.grey;
-                break;
-            case WorkerSkills.Research:
-                _ringOuter.color = Color.green;
-                break;
-        }
+        _ringOuter.color = SceneReferences.GetSpeciastColour(employee.Specialty);
     }
     #endregion
 

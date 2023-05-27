@@ -139,8 +139,6 @@ public class Game : Singleton<Game>, ISave<GameSave>
         Employees.Add(employee);
         EmployeeIconPrefab iconPrefab = Instantiate(_employeeIconPrefab);
         iconPrefab.Init(employee);
-        if (!_employeesAndPrefabs.ContainsKey(employee)) { _employeesAndPrefabs.Add(employee, iconPrefab); }
-        else if (_employeesAndPrefabs[employee] == null) { _employeesAndPrefabs[employee] = iconPrefab; }
 
         switch (employee.Location)
         {
@@ -168,7 +166,15 @@ public class Game : Singleton<Game>, ISave<GameSave>
         Employee employee = new Employee(
             SceneReferences.EmployeeNames.GetRandomElement(),
             "VisitorCentre", 200,
-            (WorkerSkills)Random.Range(1, Enum.GetValues(typeof(WorkerSkills)).Length));
+            (WorkerSkills)Random.Range(1, Enum.GetValues(typeof(WorkerSkills)).Length),
+            true);
+        GenerateEmployee(employee);
+    }
+
+    public void HireEmployee(Employee employee)
+    {
+        employee.Hired = true;
+        SceneReferences.HireController.PotentialEmployees.Remove(employee);
         GenerateEmployee(employee);
     }
 
