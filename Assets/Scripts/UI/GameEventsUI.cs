@@ -6,15 +6,15 @@ public class GameEventsUI : Singleton<GameEventsUI>
 {
     #region serializable variables
     [SerializeField] GameObject _alert;
-    [SerializeField] GameEventButtonPrefab _gameEventButtonPrefab;
+    [SerializeField] ButtonPrefab _gameEventButtonPrefab;
     [SerializeField] Transform _gameEventButtonParentTransform;
     #endregion
 
     #region local variables
     Game _game;
-    List<GameEventButtonPrefab> _gameEventButtonPrefabs = new List<GameEventButtonPrefab>();
+    List<ButtonPrefab> _gameEventButtonPrefabs = new List<ButtonPrefab>();
     List<GameEventInfo> _gameEventInfos = new List<GameEventInfo>();
-    Dictionary<GameEventInfo, GameEventButtonPrefab> _infosAndPrefabs = new Dictionary<GameEventInfo, GameEventButtonPrefab>();
+    Dictionary<GameEventInfo, ButtonPrefab> _infosAndPrefabs = new Dictionary<GameEventInfo, ButtonPrefab>();
     SceneReferences _sceneReferences;
     #endregion
 
@@ -27,6 +27,7 @@ public class GameEventsUI : Singleton<GameEventsUI>
     void Update()
     {
         _alert.SetActive(!_gameEventInfos.IsEmpty() && !_gameEventButtonParentTransform.gameObject.activeSelf);
+        if (_gameEventInfos.IsEmpty()) { _gameEventButtonParentTransform.gameObject.SetActive(false); }
     }
 
     void OnDestroy()
@@ -56,15 +57,16 @@ public class GameEventsUI : Singleton<GameEventsUI>
         {
             foreach (GameEventInfo eventInfo in _gameEventInfos)
             {
-                GameEventButtonPrefab gameEventButtonPrefab = Instantiate(_gameEventButtonPrefab, _gameEventButtonParentTransform);
-                gameEventButtonPrefab.Init(eventInfo);
+                ButtonPrefab gameEventButtonPrefab = Instantiate(_gameEventButtonPrefab, _gameEventButtonParentTransform);
+                gameEventButtonPrefab.Button.onClick.AddListener(() => SceneReferences.GameEventInfoDisplay.ShowEventInfo(eventInfo));
+                gameEventButtonPrefab.ButtonText.text = eventInfo.EventName;
                 _gameEventButtonPrefabs.Add(gameEventButtonPrefab);
                 _infosAndPrefabs.Add(eventInfo, gameEventButtonPrefab);
             }
         }
         else
         {
-            foreach (GameEventButtonPrefab gameEventButtonPrefab in _gameEventButtonPrefabs)
+            foreach (ButtonPrefab gameEventButtonPrefab in _gameEventButtonPrefabs)
             {
                 Destroy(gameEventButtonPrefab.gameObject);
             }
