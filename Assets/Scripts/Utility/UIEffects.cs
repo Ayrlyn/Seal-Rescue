@@ -34,7 +34,24 @@ public class UIEffects : MonoBehaviour
     {
         foreach (UIEffect uIEffect in _onOpenEffects)
         {
-            StartCoroutine(UIEffectRoutine(uIEffect));
+            switch (uIEffect.Effect)
+            {
+                case uiEffect.Appear:
+                    StartCoroutine(AppearRoutine(uIEffect));
+                    break;
+                case uiEffect.Disappear:
+                    StartCoroutine(DisappearRoutine(uIEffect));
+                    break;
+                case uiEffect.AppearFromBottom:
+                    StartCoroutine(AppearFromBottomRoutine(uIEffect));
+                    break;
+                case uiEffect.DisappearToBottom:
+                    StartCoroutine(DisappearToBottomRoutine(uIEffect));
+                    break;
+                default:
+                    Debug.LogError($"On Enable UI effect: {uIEffect} has not yet been implemented");
+                    break;
+            }
         }
     }
     #endregion
@@ -47,114 +64,98 @@ public class UIEffects : MonoBehaviour
     {
         foreach (UIEffect uIEffect in _onCloseEffects)
         {
-            StartCoroutine(UIEffectRoutine(uIEffect));
+            if (this.gameObject.activeSelf) 
+            {
+                switch (uIEffect.Effect)
+                {
+                    case uiEffect.Disappear:
+                        StartCoroutine(DisappearRoutine(uIEffect));
+                        break;
+                    case uiEffect.DisappearToBottom:
+                        StartCoroutine(DisappearToBottomRoutine(uIEffect));
+                        break;
+                    default:
+                        Debug.LogError($"On Close UI effect: {uIEffect.ToString()} has not yet been implemented");
+                        break;
+                }
+            }
         }
     }
     #endregion
 
     #region coroutines
-    IEnumerator UIEffectRoutine(UIEffect uIEffect)
+    IEnumerator AppearRoutine(UIEffect appearEffect)
     {
-        yield return new WaitForSeconds(uIEffect.Delay);
-        float x = 0;
-        float y = 0;
-        float z = 0;
-        switch (uIEffect.Effect)
-        {
-            case uiEffect.Appear:
-                this.transform.localScale = Vector3.zero;
-                break;
-            case uiEffect.Disappear:
-                this.transform.localScale = Vector3.one;
-                break;
-            case uiEffect.AppearFromBottom:
-                _startingX = this.transform.position.x;
-                _startingY = this.transform.position.y;
-                _startingZ = this.transform.position.z;
-                y = 0;
-                this.transform.position = new Vector3(_startingX, y, _startingZ);
-                break;
-            case uiEffect.AppearFromTop:
-                _startingX = this.transform.position.x;
-                _startingY = this.transform.position.y;
-                _startingZ = this.transform.position.z;
-                y = Screen.height;
-                this.transform.position = new Vector3(_startingX, y, _startingZ);
-                break;
-            case uiEffect.DisappearToBottom:
-                _startingX = this.transform.position.x;
-                _startingY = this.transform.position.y;
-                _startingZ = this.transform.position.z;
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            case uiEffect.DisappearToTop:
-                _startingX = this.transform.position.x;
-                _startingY = this.transform.position.y;
-                _startingZ = this.transform.position.z;
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            default:
-                break;
-        }
+        this.transform.localScale = Vector3.zero;
+        yield return new WaitForSeconds(appearEffect.Delay);
         float v = 0;
-        Function easingFunction = GetEasingFunction(uIEffect.EaseType);
-        while (v < uIEffect.Duration)
+        Function easingFunction = GetEasingFunction(appearEffect.EaseType);
+        while (v < appearEffect.Duration)
         {
-            switch (uIEffect.Effect)
-            {
-                case uiEffect.Appear:
-                    this.transform.localScale = Vector3.one * easingFunction(0, 1, v);
-                    break;
-                case uiEffect.Disappear:
-                    this.transform.localScale = Vector3.one * easingFunction(1, 0, v);
-                    break;
-                case uiEffect.AppearFromBottom:
-                    y =  easingFunction(0, _startingY, v);
-                    this.transform.position = new Vector3(_startingX, y, _startingZ);
-                    break;
-                case uiEffect.AppearFromTop:
-                    y = easingFunction(Screen.height, _startingY, v);
-                    this.transform.position = new Vector3(_startingX, y, _startingZ);
-                    break;
-                case uiEffect.DisappearToBottom:
-                    y = easingFunction(_startingY, 0, v);
-                    this.transform.position = new Vector3(_startingX, y, _startingZ);
-                    break;
-                case uiEffect.DisappearToTop:
-                    y = easingFunction(_startingY, Screen.height, v);
-                    this.transform.position = new Vector3(_startingX, y, _startingZ);
-                    break;
-                default:
-                    break;
-            }
+            this.transform.localScale = Vector3.one * easingFunction(0, 1, v);
             v += Time.deltaTime;
             yield return null;
         }
-        switch (uIEffect.Effect)
+        this.transform.localScale = Vector3.one;
+    }
+
+    IEnumerator DisappearRoutine(UIEffect disappearEffect)
+    {
+        yield return new WaitForSeconds(disappearEffect.Delay);
+        this.transform.localScale = Vector3.one;
+        float v = 0;
+        Function easingFunction = GetEasingFunction(disappearEffect.EaseType);
+        while (v < disappearEffect.Duration)
         {
-            case uiEffect.Appear:
-                this.transform.localScale = Vector3.one;
-                break;
-            case uiEffect.Disappear:
-                this.gameObject.SetActive(false);
-                break;
-            case uiEffect.AppearFromBottom:
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            case uiEffect.AppearFromTop:
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            case uiEffect.DisappearToBottom:
-                this.gameObject.SetActive(false);
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            case uiEffect.DisappearToTop:
-                this.gameObject.SetActive(false);
-                this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
-                break;
-            default:
-                break;
+            this.transform.localScale = Vector3.one * easingFunction(1, 0, v);
+            v += Time.deltaTime;
+            yield return null;
         }
+        this.transform.localScale = Vector3.zero;
+        this.gameObject.SetActive(false);
+    }
+
+    IEnumerator AppearFromBottomRoutine(UIEffect appearEffect)
+    {
+        _startingX = this.transform.position.x;
+        _startingY = this.transform.position.y;
+        _startingZ = this.transform.position.z;
+        float y = 0;
+        this.transform.position = new Vector3(_startingX, y, _startingZ);
+        yield return new WaitForSeconds(appearEffect.Delay);
+
+        float v = 0;
+        Function easingFunction = GetEasingFunction(appearEffect.EaseType);
+        while (v < appearEffect.Duration)
+        {
+            y = easingFunction(0, _startingY, v);
+            this.transform.position = new Vector3(_startingX, y, _startingZ);
+            v += Time.deltaTime;
+            yield return null;
+        }
+        this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
+    }
+
+    IEnumerator DisappearToBottomRoutine(UIEffect disappearEffect)
+    {
+        yield return new WaitForSeconds(disappearEffect.Delay);
+        _startingX = this.transform.position.x;
+        _startingY = this.transform.position.y;
+        _startingZ = this.transform.position.z;
+        float y = 0;
+        this.transform.position = new Vector3(_startingX, _startingY, _startingZ);
+
+        float v = 0;
+        Function easingFunction = GetEasingFunction(disappearEffect.EaseType);
+        while (v < disappearEffect.Duration)
+        {
+            y = easingFunction(_startingY, 0, v);
+            this.transform.position = new Vector3(_startingX, y, _startingZ);
+            v += Time.deltaTime;
+            yield return null;
+        }
+        this.transform.position = new Vector3(_startingX, 0, _startingZ);
+        this.gameObject.SetActive(false);
     }
     #endregion
 }
