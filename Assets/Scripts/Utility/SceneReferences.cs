@@ -7,6 +7,7 @@ public class SceneReferences : Singleton<SceneReferences>
     #region serializable variables
     [Header("UI Elements")]
     [SerializeField] Canvas _canvas;
+    [SerializeField] EmployeeInfoPanel _employeeInfoPanel;
     [SerializeField] Transform _eventsButtonParent;
     [SerializeField] GameEventInfoDisplay _gameEventInfoDisplay;
     [SerializeField] PopupNotificationScript _popupNotificationScript;
@@ -23,21 +24,30 @@ public class SceneReferences : Singleton<SceneReferences>
     [SerializeField] List<string> _sealNames;
     [SerializeField]List<SealSpeciesData> _sealSpecies;
     [Header("Sprites")]
+    [SerializeField] Sprite _communitySprite;
     [SerializeField] Sprite _fishSprite;
     [SerializeField] Sprite _materialsSprite;
     [SerializeField] Sprite _medicineSprite;
     [SerializeField] Sprite _moneySprite;
+    [Header("Colours")]
+    [SerializeField] Color _communityColour = Color.cyan;
+    [SerializeField] Color _handyColour = Color.grey;
+    [SerializeField] Color _managementColour = Color.magenta;
+    [SerializeField] Color _medicineColour = Color.blue;
     #endregion
 
     #region local variables
     Game _game;
     GameDateTime _gameDateTime;
+    HireController _hireController;
     Resources _resources;
     UpkeepController _upkeepController;
     #endregion
 
     #region getters and setters
     public Canvas Canvas { get { return _canvas; } }
+    public Sprite CommunitySprite { get { return _communitySprite; } }
+    public EmployeeInfoPanel EmployeeInfoPanel { get { return _employeeInfoPanel; } }
     public List<string> EmployeeNames { get { return _employeeNames; } }
     public Transform EventsButtonParent { get { return _eventsButtonParent; } }
     public FirstPool FirstPool { get { return _firstPool; } }
@@ -45,6 +55,7 @@ public class SceneReferences : Singleton<SceneReferences>
     public Game Game { get { if (_game == null) { _game = Game.Instance; } return _game; } }
     public GameDateTime GameDateTime { get { if (_gameDateTime == null) { _gameDateTime = GameDateTime.Instance; } return _gameDateTime; } }
     public GameEventInfoDisplay GameEventInfoDisplay { get { return _gameEventInfoDisplay; } }
+    public HireController HireController { get { if(_hireController == null) { _hireController = HireController.Instance; } return _hireController; } }
     public Sprite MaterialsSprite { get { return _materialsSprite; } }
     public Sprite MedicineSprite { get { return _medicineSprite; } }
     public Sprite MoneySprite { get { return _moneySprite; } }
@@ -85,6 +96,18 @@ public class SceneReferences : Singleton<SceneReferences>
         }
         Debug.LogError($"Invalid seal species: {species.ToString()}");
         return new List<Sprite>();
+    }
+
+    public Color GetSpeciastColour(WorkerSkills skill)
+    {
+        switch (skill)
+        {
+            case WorkerSkills.Community: return _communityColour;
+            case WorkerSkills.Medicine: return _medicineColour;
+            case WorkerSkills.Management: return _managementColour;
+            case WorkerSkills.Handy: return _handyColour;
+            default: return Color.black;
+        }
     }
 
     public SealSpeciesData GetSpeciesData(SealSpecies species)
