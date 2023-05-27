@@ -91,25 +91,25 @@ public class TaskUI : MonoBehaviour
         switch (task.TaskType)
         {
             case TaskType.Clean:
-                _outerRing.color = Color.black;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.DEFAULT);
                 break;
             case TaskType.Feed:
-                _outerRing.color = Color.black;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.DEFAULT);
                 break;
             case TaskType.Maintenance:
-                _outerRing.color = Color.grey;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.Handy);
                 break;
             case TaskType.Tourism:
-                _outerRing.color = Color.cyan;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.Community);
                 break;
             case TaskType.Transfer:
-                _outerRing.color = Color.black;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.DEFAULT);
                 break;
             case TaskType.TreatIllness:
-                _outerRing.color = Color.blue;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.Medicine);
                 break;
             case TaskType.TreatInjury:
-                _outerRing.color = Color.blue;
+                _outerRing.color = SceneReferences.GetSpeciastColour(WorkerSkills.Medicine);
                 break;
             default:
                 Debug.LogError($"Invalid task type: {task.TaskType}");
