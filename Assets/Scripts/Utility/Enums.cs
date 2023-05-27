@@ -118,6 +118,5 @@ public enum WorkerSkills
     Community = 10,
     Medicine = 20,
     Management = 30,
-    Handy = 40,
-    Research = 50
+    Handy = 40
 }
